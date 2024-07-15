@@ -11,6 +11,7 @@
 # include <cstdio>
 # include <cstring>
 # include <iostream>
+# include <sstream>
 
 
 class Account;
@@ -21,12 +22,13 @@ class Bank
         Bank();
         ~Bank();
 
-        std::size_t CreateAccount(double);
+        Account*    createAccount(double);
 
-        const Account *getAccount(std::size_t) const;
+        Account*  getAccount(std::size_t);
 
-        //void deleteAccount(std::size_t);
-        void deleteAccount(const Account *);
+        void deleteAccount(std::size_t);
+        void deleteAccount(Account*);
+
 
 
     private:

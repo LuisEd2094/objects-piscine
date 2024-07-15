@@ -5,10 +5,10 @@ int main(void)
 {
     Bank bank;
 
-    std::size_t id = bank.CreateAccount(100);
+    std::size_t id = bank.createAccount(100);
     if (id != 0)
     {
-        const Account * account = bank.getAccount(id);
+        Account *account = bank.getAccount(id);
         std::cout << *account << std::endl;
     }
     else

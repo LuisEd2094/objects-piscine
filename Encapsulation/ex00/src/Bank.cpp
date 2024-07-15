@@ -27,7 +27,7 @@ Bank::~Bank()
  * @return account_id of the newly used id or 
  * @return 0 if no object is available
  */
-std::size_t Bank::CreateAccount(double amount)
+Account* Bank::createAccount(double amount)
 {
     for (std::size_t i = 0; i < MAX_ACCOUNTS; ++i)
     {
@@ -37,11 +37,12 @@ std::size_t Bank::CreateAccount(double amount)
             _accounts_pool[i]._id = ++_ids;
             _accounts_pool[i]._balance = amount * 0.95;
             _liquidity += amount * 0.05;
-            return (_accounts_pool[i]._id);
+            return (&_accounts_pool[i]);
         }
     }
-    return (0);
+    return (NULL);
 }
+
 
 /**
  * @brief Returns const address of account object from pool
@@ -49,7 +50,7 @@ std::size_t Bank::CreateAccount(double amount)
  * @param id of the Account, given to you when the account is created
  * @return const Account* 
  */
-const Account* Bank::getAccount(std::size_t id) const
+Account* Bank::getAccount(std::size_t id)
 {
     for (int i = 0; i < MAX_ACCOUNTS; ++i)
     {
@@ -57,4 +58,33 @@ const Account* Bank::getAccount(std::size_t id) const
             return (&_accounts_pool[i]);
     }
     return (NULL);
+}
+
+
+/**
+ * @brief calls reset function of the account
+ * 
+ * @param id 
+ */
+void Bank::deleteAccount(Account* acc)
+{
+    if (!acc)
+        return;
+    acc->reset();
+}
+
+/**
+ * @brief searches for account with account id and resets it
+ * 
+ * @param id 
+ */
+void Bank::deleteAccount(std::size_t id)
+{
+    for (int i = 0; i < MAX_ACCOUNTS; ++i)
+    {
+        if (_accounts_pool[i]._id == id)
+        {
+            _accounts_pool[i].reset();
+        }
+    }
 }

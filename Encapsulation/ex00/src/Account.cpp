@@ -19,32 +19,35 @@ Account::~Account()
 
 }
 
-/**
- * @brief gets account id
- * 
- * @return std::size_t 
- */
+bool Account::getUsed() const
+{
+    return _used;
+}
+
+
 std::size_t Account::getId() const
 {
     return _id;
 }
-
-/**
- * @brief gets account balance
- * 
- * @return double 
- */
 
 double Account::getBalance() const
 {
     return _balance;
 }
 
-
+/**
+ * @brief sets values to default
+ * 
+ */
+void Account::reset()
+{
+    _id = 0;
+    _balance = 0;
+    _used = false;
+}
 
 std::ostream& operator << (std::ostream& os, const Account& obj)
 {
     os << "Account id: " << obj._id;
-
     return (os);
 }

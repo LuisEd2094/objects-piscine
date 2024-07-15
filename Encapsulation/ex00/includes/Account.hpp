@@ -2,7 +2,8 @@
 # define ACCOUNT_HPP
 
 # include <cstdio>
-# include <ostream>
+# include <iostream>
+# include <sstream>
 
 
 class Bank;
@@ -13,6 +14,8 @@ class Account
         ~Account();
         std::size_t getId() const; 
         double      getBalance() const;
+        bool        getUsed() const;
+        
 
     private: 
         /*Only bank is able to create Account Objects*/
@@ -22,9 +25,11 @@ class Account
         bool        _used;
 
         Account();
+        void reset();
         
         friend class Bank;
-    	friend std::ostream& operator << (std::ostream&, const Account&);
+        friend std::ostream& operator<<(std::ostream&, const Account&);
+
 };
 
 #endif
