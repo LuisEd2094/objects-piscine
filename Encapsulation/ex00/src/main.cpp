@@ -5,11 +5,19 @@ int main(void)
 {
     Bank bank;
 
-    std::size_t id = bank.createAccount(100);
-    if (id != 0)
+    Account* acc = bank.createAccount(100);
+    if (acc)
     {
-        Account *account = bank.getAccount(id);
-        std::cout << *account << std::endl;
+        std::cout << *acc << std::endl;
+        try 
+        {
+            bank.deleteAccount(acc);
+        }
+        catch (const Exception & e)
+        {
+            std::cout << e.what() << std::endl;
+            /*make payment*/
+        }
     }
     else
     {

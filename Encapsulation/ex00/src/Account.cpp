@@ -2,10 +2,10 @@
 #include <Bank.hpp>
 
 /**
- * @brief Construct a new Account:: Account object
+ * @brief Construct a new Account::Account object
  * 
  */
-Account::Account(): _id(0), _balance(0), _used(false)
+Account::Account(): _id(0), _balance(0), _loan(0), _used(false)
 {
 
 }
@@ -18,6 +18,7 @@ Account::~Account()
 {
 
 }
+
 
 bool Account::getUsed() const
 {
@@ -41,9 +42,26 @@ double Account::getBalance() const
  */
 void Account::reset()
 {
+    if (_loan != 0)
+        throw Exception("Account has outstanding amount");
     _id = 0;
     _balance = 0;
     _used = false;
+}
+
+double Account::getLoan() const
+{
+    return (_loan);
+}
+
+/**
+ * @brief Adds amount to the current _loan balance
+ * 
+ * @param amount 
+ */
+void Account::setLoan(double amount)
+{
+    _loan += amount;
 }
 
 std::ostream& operator << (std::ostream& os, const Account& obj)

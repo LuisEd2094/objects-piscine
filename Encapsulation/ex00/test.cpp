@@ -106,7 +106,7 @@ TEST_F(PreFilledTest, TestDelete)
     Bank& bankRef = *bank;
 
     std::size_t temp_id = acc_1->getId();
-    bankRef.deleteAccount(acc_1->getId());
+    bankRef.deleteAccount(acc_1);
     EXPECT_FALSE(acc_1->getUsed());
     EXPECT_TRUE(acc_2->getUsed());
 
@@ -132,8 +132,62 @@ TEST_F(PreFilledTest, TestDelete)
     bankRef.deleteAccount(acc_3);
 
 
+    bankRef.giveLoan(acc_1, 1);
+    EXPECT_THROW(bankRef.deleteAccount(acc_1), Exception);
 }
 
+#define EXCEPTION_MSG "This is my exception"
+void throwException()
+{
+    throw Exception(EXCEPTION_MSG);
+}
+
+TEST(ExceptionTest, whatTest)
+{
+    try
+    {
+        throwException();
+    }
+    catch(const Exception& e)
+    {
+        EXPECT_STREQ(EXCEPTION_MSG, e.what());
+
+    }
+}
+
+TEST_F(PreFilledTest, TestAccountLoan)
+{
+    /*2000 is the max if we set it to 10000**/
+    try
+    {
+        bank->giveLoan(acc_1, 100);
+        EXPECT_EQ(acc_1->getLoan(), 100);
+        bank->giveLoan(acc_1, 100);
+        EXPECT_EQ(acc_1->getLoan(), 200);
+    }
+    catch (const Exception & e)
+    {
+        FAIL() << "Expected no exception, but got: " << e.what() << std::endl;
+    }   
+
+    /* this should throw since is waaay more than what we can lend*/
+    EXPECT_THROW(bank->giveLoan(acc_2, INITIAL_BANK_LIQUIDITY), Exception);
+
+    try
+    {
+        bank->giveLoan(acc_1, 1802);
+        EXPECT_EQ(acc_1->getLoan(), 2002);
+    }
+    catch(const std::exception& e)
+    {
+        FAIL() << "Expected no exception, but got: " << e.what() << std::endl;
+    }
+    /*Initial liquidity is set to 10000, but we create two accounts with 100 bucks in them, so we get 5 bucks from each, our liquidity is 
+        then 10010 and max debt to 20%, so 2002 debt is not acceptable*/
+    EXPECT_THROW(bank->giveLoan(acc_2, 1), Exception);
+
+    
+}
 
 
 

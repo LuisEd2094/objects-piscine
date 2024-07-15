@@ -8,7 +8,7 @@
  * _liquidity is set to INITIAL_BANK_LIQUIDITY
  * 
  */
-Bank::Bank(): _liquidity(INITIAL_BANK_LIQUIDITY), _ids(0) 
+Bank::Bank(): _liquidity(INITIAL_BANK_LIQUIDITY), _lent(0), _ids(0) 
 {
     _accounts_pool.reserve(MAX_ACCOUNTS);
     for (std::size_t i = 0; i < MAX_ACCOUNTS; ++i)
@@ -62,8 +62,8 @@ Account* Bank::getAccount(std::size_t id)
 
 
 /**
- * @brief calls reset function of the account
- * 
+ * @brief calls reset function of the account.
+ *          Account throws Account::AccountException (std::exception) if it has a pending loan
  * @param id 
  */
 void Bank::deleteAccount(Account* acc)
@@ -74,17 +74,16 @@ void Bank::deleteAccount(Account* acc)
 }
 
 /**
- * @brief searches for account with account id and resets it
+ * @brief Checks if we have reached the 20% of our liquidity before giving out a loan
  * 
- * @param id 
+ * @param acc 
+ * @param amount 
  */
-void Bank::deleteAccount(std::size_t id)
+void Bank::giveLoan(Account * acc, double amount)
 {
-    for (int i = 0; i < MAX_ACCOUNTS; ++i)
-    {
-        if (_accounts_pool[i]._id == id)
-        {
-            _accounts_pool[i].reset();
-        }
-    }
+    if (amount + _lent > _liquidity * MAX_BANK_DEBT)
+        throw Exception("Bank can't give out a loan since it's reached its max debt!");
+    acc->setLoan(amount);
+    _lent += amount;
 }
+

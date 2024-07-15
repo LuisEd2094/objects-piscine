@@ -6,13 +6,16 @@
 # ifndef INITIAL_BANK_LIQUIDITY
 #  define INITIAL_BANK_LIQUIDITY 10000.00
 # endif
+# ifndef MAX_BANK_DEBT
+#   define MAX_BANK_DEBT 0.2 /*Arbitrary % */
+# endif
 
 # include <vector>
 # include <cstdio>
 # include <cstring>
 # include <iostream>
 # include <sstream>
-
+# include <Exception.hpp>
 
 class Account;
 
@@ -26,14 +29,17 @@ class Bank
 
         Account*  getAccount(std::size_t);
 
-        void deleteAccount(std::size_t);
         void deleteAccount(Account*);
+
+        void giveLoan(Account *, double);
+
 
 
 
     private:
         std::vector<Account>    _accounts_pool;
         double                  _liquidity;
+        double                  _lent;
         std::size_t             _ids;
 };
 

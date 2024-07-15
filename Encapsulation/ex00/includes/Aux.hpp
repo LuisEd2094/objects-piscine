@@ -1,8 +1,9 @@
 #ifndef AUX_HPP
 # define AUX_HPP
 
-# include <Bank.hpp>
 # include <Account.hpp>
+# include <Bank.hpp>
+# include <Exception.hpp>
 
 
 #endif
