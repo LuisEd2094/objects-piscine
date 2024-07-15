@@ -8,7 +8,7 @@
 # endif
 
 # include <vector>
-# include <cstddef>
+# include <cstdio>
 # include <cstring>
 # include <iostream>
 
@@ -21,7 +21,13 @@ class Bank
         Bank();
         ~Bank();
 
-        bool CreateAccount(double);
+        std::size_t CreateAccount(double);
+
+        const Account *getAccount(std::size_t) const;
+
+        //void deleteAccount(std::size_t);
+        void deleteAccount(const Account *);
+
 
     private:
         std::vector<Account>    _accounts_pool;

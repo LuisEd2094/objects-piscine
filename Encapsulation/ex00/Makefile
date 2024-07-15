@@ -12,9 +12,9 @@
 
 NAME        = DivideAndRule
 CFLAGS      = -std=c++98 -pedantic -g -Wall -Wextra -Werror
-TESTFLAGS	= -lgtest #-lgtest_main 
+TESTFLAGS	= -lgtest -lgtest_main  -fprofile-arcs -ftest-coverage
 CC			= c++
-RM          = rm -f
+RM          = rm -rf
 SRCS_PATH	= src/
 OBJS_PATH	= obj/
 DEPS_PATH	= deps/
@@ -23,6 +23,9 @@ MAKE_OBJ_DIR	=	$(OBJS_PATH) $(DEPS_PATH)
 INCS        = -I./includes
 MAX_ACCOUNTS ?= 5000
 INITIAL_BANK_LIQUIDITY ?= 10000.00
+
+# Run make MAX_ACCOUNTS=[number] to modify MAX_ACCOUNTS on compilation
+
 DEFINES = -DMAX_ACCOUNTS=$(MAX_ACCOUNTS) -DINITIAL_BANK_LIQUIDITY=$(INITIAL_BANK_LIQUIDITY)
 
 
@@ -70,19 +73,26 @@ $(MAKE_OBJ_DIR):
 TEST_SRC = test.cpp src/Bank.cpp src/Account.cpp
 
 TEST_EXEC = my_test
+
 $(TEST_EXEC): $(TEST_SRC)
-	$(CC) $(DEFINES) $(LDFLAGS) -o $(TEST_EXEC) $(TEST_SRC)   $(TESTFLAGS) $(INCS) 
+	$(CC) $(DEFINES) $(LDFLAGS) -o $(TEST_EXEC) $(TEST_SRC) $(TESTFLAGS) $(INCS) 
 
 
 
 test: $(TEST_EXEC)
 	./$(TEST_EXEC)
 
+coverage: $(TEST_EXEC)
+	./$(TEST_EXEC)
+	lcov --capture --directory . --output-file coverage.info
+	lcov --remove coverage.info '/usr/*' --output-file coverage.info
+	genhtml coverage.info --output-directory coverage_report
+
 
 clean: clean_objects
 
 fclean:  clean_objects
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(TEST_EXEC) my_test* coverage*
 	@echo "$(GREEN)$(NAME) executable cleaned!$(DEF_COLOR)"
 
 clean_objects:
