@@ -12,6 +12,7 @@
 
 NAME        = DivideAndRule
 CFLAGS      = -std=c++98 -pedantic -g -Wall -Wextra -Werror
+TESTFLAGS	= -lgtest #-lgtest_main 
 CC			= c++
 RM          = rm -f
 SRCS_PATH	= src/
@@ -20,6 +21,9 @@ DEPS_PATH	= deps/
 
 MAKE_OBJ_DIR	=	$(OBJS_PATH) $(DEPS_PATH)
 INCS        = -I./includes
+MAX_ACCOUNTS ?= 5000
+INITIAL_BANK_LIQUIDITY ?= 10000.00
+DEFINES = -DMAX_ACCOUNTS=$(MAX_ACCOUNTS) -DINITIAL_BANK_LIQUIDITY=$(INITIAL_BANK_LIQUIDITY)
 
 
 #Colors
@@ -53,9 +57,8 @@ $(NAME): $(OBJS)
 	
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp | $(MAKE_OBJ_DIR)
 			@echo "$(CYAN)Compiling $< $(DEF_COLOR)"
-			@$(CC) $(CFLAGS) $(INCS) -MMD -MP -c $< -o $@
+			@$(CC) $(CFLAGS) $(INCS) $(DEFINES) -MMD -MP -c $< -o $@
 			@mv $(basename $@).d $(patsubst $(SRCS_PATH)%,$(DEPS_PATH)%,$(dir $<))
-
 
 $(MAKE_OBJ_DIR):
 	@echo "$(GREEN)Creating $(NAME) Objs and Deps Directories $(DEF_COLOR)"
@@ -63,6 +66,17 @@ $(MAKE_OBJ_DIR):
 
 
 -include $(DEPS)
+
+TEST_SRC = test.cpp src/Bank.cpp src/Account.cpp
+
+TEST_EXEC = my_test
+$(TEST_EXEC): $(TEST_SRC)
+	$(CC) $(DEFINES) $(LDFLAGS) -o $(TEST_EXEC) $(TEST_SRC)   $(TESTFLAGS) $(INCS) 
+
+
+
+test: $(TEST_EXEC)
+	./$(TEST_EXEC)
 
 
 clean: clean_objects

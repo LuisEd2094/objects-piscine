@@ -1,7 +1,11 @@
 #ifndef BANK_HPP
 # define BANK_HPP
-# define MAX_ACCOUNTS 5000
-# define INITIAL_BANK_LIQUIDITY 10000.00
+# ifndef MAX_ACCOUNTS
+#   define MAX_ACCOUNTS 5000
+# endif
+# ifndef INITIAL_BANK_LIQUIDITY
+#  define INITIAL_BANK_LIQUIDITY 10000.00
+# endif
 
 # include <vector>
 # include <cstddef>

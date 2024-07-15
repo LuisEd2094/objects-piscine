@@ -11,3 +11,9 @@ Account::~Account()
 {
 
 }
+
+
+std::size_t Account::getId() const
+{
+    return _id;
+}
