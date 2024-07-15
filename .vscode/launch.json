@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "preLaunchTask": "Build Encapsulation Ex00",
+            "name": "Encapsulation Ex00",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Encapsulation/ex00/DivideAndRule",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+	        "args": [""],
+        },
+    ]
+}
