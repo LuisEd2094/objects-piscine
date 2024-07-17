@@ -9,6 +9,9 @@
 # ifndef MAX_BANK_DEBT
 #   define MAX_BANK_DEBT 0.2 /*Arbitrary % */
 # endif
+# ifndef BANKS_CUT
+#  define BANKS_CUT 0.05
+# endif
 
 # include <vector>
 # include <cstdio>
@@ -27,12 +30,16 @@ class Bank
 
         Account*    createAccount(double);
 
-        Account*  getAccount(std::size_t);
+        Account*    getAccount(std::size_t);
 
-        void deleteAccount(Account*);
+        void        deleteAccount(Account*);
+        void        giveLoan(Account *, double);
+        void        makePayment(Account *, double);
+        void        deposit(Account *, double);
+        void        withdraw(Account *, double);
 
-        void giveLoan(Account *, double);
 
+        double      getLiquidity();
 
 
 
@@ -41,6 +48,7 @@ class Bank
         double                  _liquidity;
         double                  _lent;
         std::size_t             _ids;
+        void                    addToLiquidity(double);
 };
 
 

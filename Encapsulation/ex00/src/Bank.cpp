@@ -21,6 +21,16 @@ Bank::~Bank()
 }
 
 /**
+ * @brief Adds amount * BANKS_CUT (5%) to banks liquidity
+ * 
+ * @param amount 
+ */
+void Bank::addToLiquidity(double amount)
+{
+    _liquidity += amount * BANKS_CUT;
+}
+
+/**
  * @brief Checks _accounts_pool for available object.
  * 
  * @param amount initial amount on the account, %5 is added to Bank liquidity
@@ -35,14 +45,21 @@ Account* Bank::createAccount(double amount)
         {
             _accounts_pool[i]._used = true;
             _accounts_pool[i]._id = ++_ids;
-            _accounts_pool[i]._balance = amount * 0.95;
-            _liquidity += amount * 0.05;
+            _accounts_pool[i]._balance = amount - (amount * BANKS_CUT);
+            addToLiquidity(amount);
             return (&_accounts_pool[i]);
         }
     }
     return (NULL);
 }
 
+
+
+
+double Bank::getLiquidity()
+{
+    return _liquidity;
+}
 
 /**
  * @brief Returns const address of account object from pool
@@ -81,9 +98,45 @@ void Bank::deleteAccount(Account* acc)
  */
 void Bank::giveLoan(Account * acc, double amount)
 {
+    if (!acc)
+        return;
     if (amount + _lent > _liquidity * MAX_BANK_DEBT)
         throw Exception("Bank can't give out a loan since it's reached its max debt!");
     acc->setLoan(amount);
     _lent += amount;
 }
 
+/**
+ * @brief if acc has any outstanding loan, it'd make amount payment to it.
+ * 
+ * @param acc 
+ * @param amount 
+ * @return Returns -1 if there is no loan, a positive number or 0 if amount >= loan or negative number if amount is greater than  
+ */
+void Bank::makePayment(Account * acc, double amount)
+{
+    if (!acc)
+        return;
+    if (acc->_loan > 0)
+    {
+        acc->_loan -= amount;
+        if (acc->_loan < 0)
+        {
+            deposit(acc, acc->_loan * -1);
+            acc->_loan = 0;
+        }
+    }
+}
+/**
+ * @brief Acc->_balance is increased by amount - BANKS_CUT and bank._liquidity is increased by BANKS 
+ * 
+ * @param acc 
+ * @param amount 
+ */
+void Bank::deposit(Account * acc, double amount)
+{
+    if (!acc)
+        return;
+    acc->addBalance(amount);
+    addToLiquidity(amount);
+}

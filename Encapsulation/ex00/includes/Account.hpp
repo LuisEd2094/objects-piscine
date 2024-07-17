@@ -20,6 +20,7 @@ class Account
         bool        getUsed() const;
 
         void        setLoan(double);
+        void        addBalance(double);
         class       AccountException;
     private: 
         /*Only bank is able to create Account Objects*/

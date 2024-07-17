@@ -23,6 +23,7 @@ class PreFilledTest: public ::testing::Test
     Bank* bank;
     Account * acc_1;
     Account * acc_2;
+    Account * acc_3;
     std::size_t setup_id_2;
     std::size_t setup_id_1;
     std::size_t setup_amount;
@@ -97,7 +98,7 @@ TEST_F(BankTest, TestAccountContent)
 
     os << *acc_1;
 
-    std::string expected_output = "Account id: 1";
+    std::string expected_output = "Account id: 1\nAccount balance: 95\nAccount loan: 0\n";
     EXPECT_EQ(os.str(), expected_output);
 }
 
@@ -155,15 +156,31 @@ TEST(ExceptionTest, whatTest)
     }
 }
 
+
+
+TEST_F(PreFilledTest, TestDeposit)
+{
+    Bank& bankRef = *bank;
+
+    bank->deposit(acc_1, 100);
+    EXPECT_EQ(acc_1->getBalance(), 95+95);
+    /*two accounts with iniatial values of 100*0.05 == 10 + 5 from new deposit*/
+    EXPECT_EQ(bank->getLiquidity(), INITIAL_BANK_LIQUIDITY + 5 + 5 + 5 ); 
+
+}
+
 TEST_F(PreFilledTest, TestAccountLoan)
 {
     /*2000 is the max if we set it to 10000**/
+    EX
     try
     {
         bank->giveLoan(acc_1, 100);
         EXPECT_EQ(acc_1->getLoan(), 100);
+        EXPECT_EQ(acc_1->getBalance(), 195);
         bank->giveLoan(acc_1, 100);
         EXPECT_EQ(acc_1->getLoan(), 200);
+        EXPECT_EQ(acc_1->getBalance(), 295);
     }
     catch (const Exception & e)
     {
@@ -188,8 +205,31 @@ TEST_F(PreFilledTest, TestAccountLoan)
 
     
 }
+TEST_F(PreFilledTest, TestPayment)
+{
+    acc_3 = bank->createAccount(setup_amount);
 
+    bank->giveLoan(acc_1, 100);
+    bank->makePayment(acc_1, 95);
 
+    EXPECT_EQ(acc_1->getLoan(), 5);
+    EXPECT_EQ(acc_1->getBalance(), 195);
+
+    bank->makePayment(acc_1, 5);
+    EXPECT_EQ(acc_1->getLoan(), 0);
+    EXPECT_EQ(acc_1->getBalance(), 195);
+
+    bank->giveLoan(acc_2, 100);
+    bank->makePayment(acc_2, 100);
+    EXPECT_EQ(acc_2->getLoan(), 0);
+    EXPECT_EQ(acc_2->getBalance(), 195);
+
+    bank->giveLoan(acc_3, 100);
+    bank->makePayment(acc_3, 200);
+
+    EXPECT_EQ(acc_3->getLoan(), 0);
+    EXPECT_EQ(acc_3->getBalance(), 290);
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
