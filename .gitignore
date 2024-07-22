@@ -1,5 +1,5 @@
 *.d
 *.o
-DivideAndRule
+DivideAndRule*
 my_test*
 coverage*
