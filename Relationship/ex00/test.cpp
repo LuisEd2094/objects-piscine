@@ -144,9 +144,43 @@ TEST_F(WorkerTest, changeHands)
     EXPECT_EQ(worker2._tool.size(), 2);
     EXPECT_EQ(worker2._tool.front(), &shovel);
     EXPECT_EQ(worker2._tool.back(), &hammer);
+}
 
 
+TEST_F(WorkerTest, getShovel)
+{
+    worker.setTool(&shovel);
+    
+    EXPECT_EQ(worker.GetToolShovel(), &shovel);
 
+    worker2.setTool(&shovel2);
+    worker2.setTool(&shovel);
+
+    EXPECT_EQ(worker.GetToolShovel(), nullptr);
+    EXPECT_EQ(worker2.GetToolShovel(), &shovel2);
+
+
+}
+
+TEST_F(WorkerTest, getHammer)
+{
+    worker.setTool(&hammer);
+    
+    EXPECT_EQ(worker.GetToolHammer(), &hammer);
+
+}
+
+TEST_F(WorkerTest, getBoth)
+{
+    worker.setTool(&hammer);
+    worker.setTool(&shovel);
+    worker.setTool(&shovel2);
+
+    EXPECT_EQ(worker.GetToolHammer(), &hammer);
+    EXPECT_EQ(worker.GetToolShovel(), &shovel);
+
+    EXPECT_EQ(worker2.GetToolHammer(), nullptr);
+    EXPECT_EQ(worker2.GetToolShovel(), nullptr);
 }
 
 int main(int argc, char **argv) {

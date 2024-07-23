@@ -40,6 +40,9 @@ class Worker
         void resetTool(Tool *);
         void setTool(Tool *);
 
+        Shovel *GetToolShovel();
+        Hammer *GetToolHammer();
+
         /*Hammer * GetToolHammer();
         Shovel * GetToolShovel();*/
 

@@ -14,5 +14,13 @@ class Shovel: public Tool
 
 };
 
+class ShovelFinder
+{
+    public:
+        bool operator()(Tool *tool)
+        {
+            return dynamic_cast<Shovel *>(tool) != NULL;
+        }
+};
 
 #endif

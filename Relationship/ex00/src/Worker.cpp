@@ -1,7 +1,8 @@
 #include <Worker.hpp>
 #include <Tool.hpp>
 #include <Workshop.hpp>
-
+#include <Shovel.hpp>
+#include <Hammer.hpp>
 
 Worker::Worker(): coordonnee(0,0,0), stat(0,0)
 {
@@ -18,10 +19,7 @@ Worker::~Worker()
 
 void Worker::resetTool(Tool * tool)
 {
-    std::list<Tool *>::iterator it = std::find(_tool.begin(), _tool.end(), tool);
-
-    if (it != _tool.end())
-        _tool.erase(it);
+    _tool.remove_if(ToolMatcher(tool));
 }
 
 /**
@@ -39,4 +37,31 @@ void Worker::setTool(Tool * tool)
         _tool.push_back(tool);
         tool->setWorker(this);
     }
+}
+
+/**
+ * @brief Get the Tool Shovel object, first on the list of tools
+ * 
+ * @return Shovel* 
+ */
+Shovel *Worker::GetToolShovel()
+{
+    std::list<Tool *>::iterator it = std::find_if(_tool.begin(), _tool.end(), ShovelFinder());
+
+    if (it != _tool.end())
+        return dynamic_cast<Shovel *>(*it);
+    return NULL;
+}
+/**
+ * @brief Get the Tool Hammer object, first on the list of tools
+ * 
+ * @return Hammer* 
+ */
+Hammer *Worker::GetToolHammer()
+{
+    std::list<Tool *>::iterator it = std::find_if(_tool.begin(), _tool.end(), HammerFinder());
+
+    if (it != _tool.end())
+        return dynamic_cast<Hammer *>(*it);
+    return NULL;
 }

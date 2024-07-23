@@ -13,4 +13,13 @@ class Hammer: public Tool
 
 };
 
+class HammerFinder
+{
+    public:
+        bool operator()(Tool *tool)
+        {
+            return dynamic_cast<Hammer *>(tool) != NULL;
+        }
+};
+
 #endif

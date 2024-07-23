@@ -13,11 +13,11 @@ int main(void)
 
     worker->setTool(shovel);
 
-    delete worker;
 
     worker2->setTool(hammer);
     worker2->setTool(shovel);
 
     delete worker2;
+    delete worker;
 
 }
