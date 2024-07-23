@@ -63,7 +63,7 @@ $(MAKE_OBJ_DIR):
 
 -include $(DEPS)
 
-TEST_SRC = test.cpp src/
+TEST_SRC = test.cpp
 
 TEST_EXEC = my_test
 
