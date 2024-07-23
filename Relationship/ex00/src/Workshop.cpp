@@ -12,7 +12,25 @@ Workshop::Workshop(Tool *tool)
 
 Workshop::~Workshop()
 {
+    std::list<Worker *>::iterator it = _students.begin();
+    for (; it != _students.end(); ++it)
+    {
+        (*it)->removeWorkShop(this);
+    }  
 
+}
+
+void Workshop::executeWorkDay()
+{
+    for (std::list<Worker *>::iterator it = _students.begin() ; it != _students.end(); ++it)
+    {
+        (*it)->work();
+    }
+}
+
+void Workshop::signOff(Worker* worker)
+{
+    _students.remove_if(WorkerMatcher(worker));
 }
 
 bool Workshop::canSignUp(Worker * worker)

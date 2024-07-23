@@ -45,6 +45,46 @@ class WorkShopTest: public ::testing::Test
 
 };
 
+class WorkShopDeconstructionTest: public ::testing::Test
+{
+    protected:
+    void SetUp() override
+    {
+        worker = new Worker();
+        shovel = new Shovel();
+        shovel2 = new Shovel();
+        hammer = new Hammer();
+        worker->setTool(hammer);
+        worker->setTool(shovel);
+        workshopShovel = new Workshop(shovel);
+        workshopHammer = new Workshop(hammer);
+
+    }
+    void TearDown() override {
+        if (workshopShovel)
+            delete workshopShovel;
+        if (workshopHammer)
+            delete workshopHammer;
+        if (worker)
+            delete worker;
+        if (shovel)
+            delete shovel;
+        if (hammer)
+            delete hammer;
+        if (shovel2)
+            delete shovel2;
+
+
+    }
+    Worker* worker;
+    Shovel* shovel;
+    Shovel* shovel2;
+    Hammer* hammer;
+    Workshop* workshopShovel;
+    Workshop* workshopHammer;
+
+};
+
 class DestructTest: public ::testing::Test
 {
     protected:
@@ -75,6 +115,51 @@ class DestructTest: public ::testing::Test
     Shovel* shovel2;
     Hammer* hammer;
 };
+
+
+TEST_F(WorkShopDeconstructionTest, destructWorkers)
+{
+    workshopShovel->signUp(worker);
+    EXPECT_EQ(workshopShovel->_students.size(), 1);
+    delete (worker);
+    worker = NULL;
+    EXPECT_EQ(workshopShovel->_students.size(), 0);
+}
+
+TEST_F(WorkShopDeconstructionTest, destructWorkShop)
+{
+    workshopShovel->signUp(worker);
+    EXPECT_EQ(worker->_workshops.size(), 1);
+    delete (workshopShovel);
+    workshopShovel = NULL;
+    EXPECT_EQ(worker->_workshops.size(), 0);
+}
+
+
+
+TEST_F(WorkShopDeconstructionTest, destructTool)
+{
+    workshopShovel->signUp(worker);
+    EXPECT_EQ(worker->_workshops.size(), 1);
+    delete (shovel);
+    shovel = NULL;
+    EXPECT_EQ(worker->_workshops.size(), 0);
+    EXPECT_EQ(workshopShovel->_students.size(), 0);
+}
+
+
+TEST_F(WorkShopDeconstructionTest, destructToolButStillEnough)
+{
+    workshopShovel->signUp(worker);
+    worker->setTool(shovel2);
+    EXPECT_EQ(worker->_workshops.size(), 1);
+    delete (shovel);
+    shovel = NULL;
+    EXPECT_EQ(worker->_workshops.size(), 1);
+    EXPECT_EQ(workshopShovel->_students.size(), 1);
+}
+
+
 
 TEST_F(DestructTest, destructionWorkerTest)
 {

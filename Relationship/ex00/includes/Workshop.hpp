@@ -30,4 +30,21 @@ class Workshop
 };
 
 
+
+class WorkshopMatcher
+{
+    public: 
+        WorkshopMatcher(Workshop * w) : workShopToMatch(w) {}
+        
+        bool operator()(Workshop* w) const 
+        {
+            return w == workShopToMatch;
+        }
+
+    private:
+        Workshop * workShopToMatch;
+};
+
+
+
 #endif

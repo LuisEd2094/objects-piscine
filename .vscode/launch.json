@@ -41,5 +41,44 @@
             ],
 	        "args": [""],
         },
+        {
+            "preLaunchTask": "Build Relationship Ex00",
+            "name": "Relationship Ex00",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Relationship/ex00/RelationShip",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+	        "args": [""],
+        },
+        {
+            "name": "Test Relationship Ex01",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Relationship/ex00/my_test",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+	        "args": [""],
+        },
     ]
 }

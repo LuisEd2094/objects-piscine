@@ -40,12 +40,13 @@ class Worker
         void resetTool(Tool *);
         void setTool(Tool *);
         void addWorkshop(Workshop *);
+        void removeWorkShop(Workshop *);
+
+        void work();
 
         Shovel *GetToolShovel();
         Hammer *GetToolHammer();
 
-        /*Hammer * GetToolHammer();
-        Shovel * GetToolShovel();*/
 
 
         Position                coordonnee;

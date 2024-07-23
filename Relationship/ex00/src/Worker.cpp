@@ -14,12 +14,46 @@ Worker::~Worker()
     std::list<Tool *>::iterator it = _tool.begin();
 
     for (; it != _tool.end(); ++it)
+    {
         (*it)->resetWorker();
+    }
+    std::list<Workshop *>::iterator it2 = _workshops.begin();
+    for (; it2 != _workshops.end(); ++it2)
+    {
+        (*it2)->signOff(this);
+    }  
+
 }
 
+void Worker::removeWorkShop(Workshop *workshop)
+{
+    _workshops.remove_if(WorkshopMatcher(workshop));
+
+}
+/**
+ * @brief Removes tool if worker has it. Removes itself from _workshops that need said tool
+ * 
+ * @param tool 
+ */
 void Worker::resetTool(Tool * tool)
 {
     _tool.remove_if(ToolMatcher(tool));
+
+    std::list<Workshop *>::iterator it = _workshops.begin();
+
+    while (it != _workshops.end())
+    {
+        if (!(*it)->canSignUp(this))
+        {
+            (*it)->signOff(this);
+            it = _workshops.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
 }
 
 /**
@@ -78,4 +112,10 @@ void Worker::addWorkshop(Workshop *workshop)
             workshop->signUp(this);
         }
     }
+}
+
+void Worker::work()
+{
+    if (_workshops.size() > 0)
+        std::cout << "I am working lala" << std::endl;
 }
