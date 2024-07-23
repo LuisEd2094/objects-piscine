@@ -23,6 +23,28 @@ class WorkerTest: public ::testing::Test
     Hammer hammer;
 };
 
+
+class WorkShopTest: public ::testing::Test
+{
+    protected:
+    void SetUp() override
+    {
+        workshopShovel = new Workshop(&shovel);
+        workshopHammer = new Workshop(&hammer);
+
+    }
+    void TearDown() override {
+        delete workshopShovel;
+        delete workshopHammer;
+    }
+    Worker worker;
+    Shovel shovel;
+    Hammer hammer;
+    Workshop* workshopShovel;
+    Workshop* workshopHammer;
+
+};
+
 class DestructTest: public ::testing::Test
 {
     protected:
@@ -31,7 +53,7 @@ class DestructTest: public ::testing::Test
         worker = new Worker();
         worker2 = new Worker();
         shovel = new Shovel();
-        shovel2 = new Shovel();
+        shovel2= new Shovel();
         hammer = new Hammer(); 
 
     }
@@ -92,8 +114,6 @@ TEST_F(DestructTest, destructionToolTest)
     shovel2 = NULL;
     
     EXPECT_EQ(worker->_tool.size(), 0);
-
-
 }
 
 TEST_F(WorkerTest, setToolTest)
@@ -182,6 +202,93 @@ TEST_F(WorkerTest, getBoth)
     EXPECT_EQ(worker2.GetToolHammer(), nullptr);
     EXPECT_EQ(worker2.GetToolShovel(), nullptr);
 }
+
+
+
+TEST_F(WorkShopTest, addWorkshop)
+{
+    worker.setTool(&hammer);
+
+    worker.addWorkshop(workshopHammer);
+    worker.addWorkshop(workshopShovel);
+
+    EXPECT_EQ(worker._workshops.size(), 1);
+    EXPECT_EQ(worker._workshops.front(), workshopHammer);
+    EXPECT_EQ(workshopHammer->_students.front(), &worker);
+    EXPECT_EQ(workshopHammer->_students.size(), 1);
+    EXPECT_EQ(workshopShovel->_students.front(), nullptr);
+    EXPECT_EQ(workshopShovel->_students.size(), 0);
+
+    worker.setTool(&shovel);
+    worker.addWorkshop(workshopHammer);
+    worker.addWorkshop(workshopShovel);
+    EXPECT_EQ(worker._workshops.size(), 2);
+    EXPECT_EQ(worker._workshops.front(), workshopHammer);
+    EXPECT_EQ(worker._workshops.back(), workshopShovel);
+    EXPECT_EQ(workshopHammer->_students.front(), &worker);
+    EXPECT_EQ(workshopHammer->_students.size(), 1);
+    EXPECT_EQ(workshopShovel->_students.front(), &worker);
+    EXPECT_EQ(workshopShovel->_students.size(), 1);
+
+}
+
+
+TEST_F(WorkShopTest, signUp)
+{
+    worker.setTool(&hammer);
+
+    workshopHammer->signUp(&worker);
+    workshopShovel->signUp(&worker);
+
+
+    EXPECT_EQ(worker._workshops.size(), 1);
+    EXPECT_EQ(worker._workshops.front(), workshopHammer);
+    EXPECT_EQ(workshopHammer->_students.front(), &worker);
+    EXPECT_EQ(workshopHammer->_students.size(), 1);
+    EXPECT_EQ(workshopShovel->_students.front(), nullptr);
+    EXPECT_EQ(workshopShovel->_students.size(), 0);
+
+    worker.setTool(&shovel);
+    workshopHammer->signUp(&worker);
+    workshopShovel->signUp(&worker);
+    EXPECT_EQ(worker._workshops.size(), 2);
+    EXPECT_EQ(worker._workshops.front(), workshopHammer);
+    EXPECT_EQ(worker._workshops.back(), workshopShovel);
+    EXPECT_EQ(workshopHammer->_students.front(), &worker);
+    EXPECT_EQ(workshopHammer->_students.size(), 1);
+    EXPECT_EQ(workshopShovel->_students.front(), &worker);
+    EXPECT_EQ(workshopShovel->_students.size(), 1);
+
+}
+
+
+TEST_F(WorkShopTest, signUpAndAddWorkShop)
+{
+    worker.setTool(&hammer);
+
+    workshopHammer->signUp(&worker);
+    worker.addWorkshop(workshopShovel);
+
+
+    EXPECT_EQ(worker._workshops.size(), 1);
+    EXPECT_EQ(worker._workshops.front(), workshopHammer);
+    EXPECT_EQ(workshopHammer->_students.front(), &worker);
+    EXPECT_EQ(workshopHammer->_students.size(), 1);
+    EXPECT_EQ(workshopShovel->_students.front(), nullptr);
+    EXPECT_EQ(workshopShovel->_students.size(), 0);
+
+    worker.setTool(&shovel);
+    workshopHammer->signUp(&worker);
+    worker.addWorkshop(workshopShovel);
+    EXPECT_EQ(worker._workshops.size(), 2);
+    EXPECT_EQ(worker._workshops.front(), workshopHammer);
+    EXPECT_EQ(worker._workshops.back(), workshopShovel);
+    EXPECT_EQ(workshopHammer->_students.front(), &worker);
+    EXPECT_EQ(workshopHammer->_students.size(), 1);
+    EXPECT_EQ(workshopShovel->_students.front(), &worker);
+    EXPECT_EQ(workshopShovel->_students.size(), 1);
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

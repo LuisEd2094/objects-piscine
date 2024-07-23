@@ -39,6 +39,7 @@ class Worker
         ~Worker();
         void resetTool(Tool *);
         void setTool(Tool *);
+        void addWorkshop(Workshop *);
 
         Shovel *GetToolShovel();
         Hammer *GetToolHammer();
@@ -50,11 +51,26 @@ class Worker
         Position                coordonnee;
         Statistic               stat;
         std::list<Tool *>       _tool;
-        std::list<Workshop>     _workshops; 
+        std::list<Workshop *>   _workshops; 
 
     private:
 
 
+};
+
+
+class WorkerMatcher
+{
+    public: 
+        WorkerMatcher(Worker * worker) : workerToMatch(worker) {}
+        
+        bool operator()(Worker* w) const 
+        {
+            return w == workerToMatch;
+        }
+
+    private:
+        Worker * workerToMatch;
 };
 
 #endif

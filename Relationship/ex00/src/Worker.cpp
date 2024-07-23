@@ -27,7 +27,7 @@ void Worker::resetTool(Tool * tool)
  * 
  * @param tool new tool to be used by worker
  */
-void Worker::setTool(Tool * tool)
+void Worker::setTool(Tool* tool)
 {
     std::list<Tool *>::iterator it = std::find(_tool.begin(), _tool.end(), tool);
     
@@ -64,4 +64,18 @@ Hammer *Worker::GetToolHammer()
     if (it != _tool.end())
         return dynamic_cast<Hammer *>(*it);
     return NULL;
+}
+
+void Worker::addWorkshop(Workshop *workshop)
+{
+    std::list<Workshop *>::iterator it = std::find(_workshops.begin(), _workshops.end(), workshop);
+
+    if (it == _workshops.end())
+    {
+        if (workshop->canSignUp(this))
+        {
+            _workshops.push_back(workshop);
+            workshop->signUp(this);
+        }
+    }
 }

@@ -38,7 +38,7 @@ LIGHT_GREEN = \033[1;92m
 
 ###
  
-SRC        		=	main.cpp  Worker.cpp Shovel.cpp Hammer.cpp
+SRC        		=	main.cpp  Worker.cpp Shovel.cpp Hammer.cpp Workshop.cpp
 				
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d))
 
@@ -63,7 +63,7 @@ $(MAKE_OBJ_DIR):
 
 -include $(DEPS)
 
-TEST_SRC = test.cpp src/Worker.cpp src/Shovel.cpp src/Hammer.cpp
+TEST_SRC = test.cpp src/Worker.cpp src/Shovel.cpp src/Hammer.cpp src/Workshop.cpp
 
 TEST_EXEC = my_test
 
