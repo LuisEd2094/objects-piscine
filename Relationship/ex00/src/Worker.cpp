@@ -10,14 +10,18 @@ Worker::Worker(): coordonnee(0,0,0), stat(0,0)
 
 Worker::~Worker()
 {
-    if (_tool)
-        _tool->resetWorker();
+    std::list<Tool *>::iterator it = _tool.begin();
 
+    for (; it != _tool.end(); ++it)
+        (*it)->resetWorker();
 }
 
-void Worker::resetTool()
+void Worker::resetTool(Tool * tool)
 {
-    _tool = NULL;
+    std::list<Tool *>::iterator it = std::find(_tool.begin(), _tool.end(), tool);
+
+    if (it != _tool.end())
+        _tool.erase(it);
 }
 
 /**
@@ -28,10 +32,11 @@ void Worker::resetTool()
 void Worker::setTool(Tool * tool)
 {
     std::list<Tool *>::iterator it = std::find(_tool.begin(), _tool.end(), tool);
-    /*
-    if (_tool)
-        _tool->resetWorker();
-    tool->resetWorker();
-    tool->setWorker(this);
-    _tool = tool;*/
+    
+    /*If not found then we set it*/
+    if (it == _tool.end())
+    {
+        _tool.push_back(tool);
+        tool->setWorker(this);
+    }
 }

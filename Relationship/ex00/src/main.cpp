@@ -1,9 +1,23 @@
 #include <Shovel.hpp>
+#include <Worker.hpp>
+#include <Hammer.hpp>
 
 int main(void)
 {
-    Shovel shovel;
+    Worker*  worker = new Worker();
+    Worker*  worker2 = new Worker();
+    Shovel* shovel = new Shovel();
+    Hammer* hammer = new Hammer();
 
-    shovel.use();
+
+
+    worker->setTool(shovel);
+
+    delete worker;
+
+    worker2->setTool(hammer);
+    worker2->setTool(shovel);
+
+    delete worker2;
 
 }

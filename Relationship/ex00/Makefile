@@ -68,7 +68,7 @@ TEST_SRC = test.cpp src/Worker.cpp src/Shovel.cpp src/Hammer.cpp
 TEST_EXEC = my_test
 
 $(TEST_EXEC): $(TEST_SRC)
-	$(CC) $(DEFINES) $(LDFLAGS) -o $(TEST_EXEC) $(TEST_SRC) $(TESTFLAGS) $(INCS) 
+	$(CC) $(DEFINES) -g -o $(TEST_EXEC) $(TEST_SRC) $(TESTFLAGS) $(INCS) 
 
 
 

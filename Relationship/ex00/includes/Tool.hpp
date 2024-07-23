@@ -11,9 +11,10 @@ class Tool
     public:
         virtual void use () = 0;
         Tool() : numberOfUses(0), worker(NULL){};
-        ~Tool() {resetWorker();};
-        void resetWorker() {if (worker) worker->resetTool(); worker = NULL;}
-        void setWorker(Worker *w) {worker = w;}; 
+        ~Tool() {if (worker) {worker->resetTool(this);}};
+
+        void resetWorker() {worker = NULL;}
+        void setWorker(Worker *w) {if (worker) {worker->resetTool(this);} worker = w;}; 
 
         
         std::size_t numberOfUses;

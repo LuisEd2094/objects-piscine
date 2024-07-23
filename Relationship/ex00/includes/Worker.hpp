@@ -37,17 +37,17 @@ class Worker
     public:
         Worker();
         ~Worker();
-        void resetTool();
+        void resetTool(Tool *);
         void setTool(Tool *);
 
         /*Hammer * GetToolHammer();
         Shovel * GetToolShovel();*/
 
 
-        Position    coordonnee;
-        Statistic   stat;
+        Position                coordonnee;
+        Statistic               stat;
         std::list<Tool *>       _tool;
-        std::list<Workshop> _workshops; 
+        std::list<Workshop>     _workshops; 
 
     private:
 
