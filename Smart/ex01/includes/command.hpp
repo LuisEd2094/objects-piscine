@@ -24,14 +24,16 @@ protected:
     int year, month, day, hour, minute, second, day_of_week;
     std::string _client;
     
-    std::list<article> _articles; 
+    std::list<article> _articles;
+    command(){};
+ 
 public:
     command(const std::string&, const std::list<article>&);
     ~command();
 
     const std::list<article>& getArticles() {return _articles;};
 
-    virtual std::size_t get_total_price() const; 
+    virtual std::size_t get_total_price() const;
 };
 
 std::size_t command::global_id = 0;
