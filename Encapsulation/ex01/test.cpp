@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include <Bank.hpp>
-#include <Account.hpp>
+#include <Graph.hpp>
+#include <Vector2.hpp>
 # include <sstream>
 
 // Define a fixture class for setup and teardown
@@ -12,7 +12,7 @@ protected:
     void TearDown() override {
     }
 
-}
+};
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
