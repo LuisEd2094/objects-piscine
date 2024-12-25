@@ -172,7 +172,6 @@ TEST_F(PreFilledTest, TestDeposit)
 TEST_F(PreFilledTest, TestAccountLoan)
 {
     /*2000 is the max if we set it to 10000**/
-    EX
     try
     {
         bank->giveLoan(acc_1, 100);

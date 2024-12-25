@@ -80,10 +80,11 @@ $(TEST_EXEC): $(TEST_SRC)
 
 
 test: $(TEST_EXEC)
-	./$(TEST_EXEC)
-	lcov --capture --directory . --output-file coverage.info
-	lcov --remove coverage.info '/usr/*' --output-file coverage.info
-	genhtml coverage.info --output-directory coverage_report
+	@./$(TEST_EXEC)
+	@lcov --capture --directory . --output-file coverage.info
+	@lcov --remove coverage.info '/usr/*' --output-file coverage.info
+	@genhtml coverage.info --output-directory coverage_report
+	
 
 
 clean: clean_objects
