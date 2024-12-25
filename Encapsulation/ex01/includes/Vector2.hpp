@@ -5,10 +5,10 @@
 typedef struct Vector2
 {
     float points[2];
-    Vector2(float y, float x)
+    Vector2(float x, float y)
     {
-        points[0] = y;
-        points[1] = x;
+        points[0] = x;
+        points[1] = y;
     };
 } Vector2;
 

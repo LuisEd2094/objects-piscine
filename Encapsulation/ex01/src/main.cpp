@@ -8,16 +8,19 @@ int main(int argc, char **argv)
     try{
         if (argc == 1)
         {
-            Graph graph;
+            /* Graph graph;
             graph.addVector(0, 0);
-            graph.printGraph();
-
             graph.addVector(2, 2);
-            graph.printGraph();
             graph.addVector(4, 2);
 
+
             graph.printGraph();
-            std::cout << "Size: " << graph.getSize() << std::endl;
+            std::cout << "Size: " << graph.getSize() << std::endl; */
+
+            Graph graph2;
+            graph2.addLine(Vector2(0, 0), Vector2(2, 9));
+
+            graph2.printGraph();
         }
         else if (argc == 2)
         {

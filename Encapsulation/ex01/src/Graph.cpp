@@ -47,6 +47,35 @@ void Graph::addVector(float y, float x)
     _size =  Vector2(_max_y + 1, _max_x + 1);
 }
  
+/**
+ * @brief Adds a line to the graph using the Bresenham's line algorithm
+ * Updates the size of the graph
+ */
+
+void Graph::addLine(const Vector2 &a, const Vector2 &b)
+{
+    int dx = b.points[1] - a.points[1];
+    int dy = b.points[0] - a.points[0];
+
+    // Handle infinite slope
+    if (dx == 0) {
+        for (int y = std::min(a.points[0], b.points[0]); y <= std::max(a.points[0], b.points[0]); ++y)
+        {
+            addVector(a.points[1], y);
+        }
+        return;
+    }
+
+    float m = static_cast<float>(dy) / static_cast<float>(dx);
+    float c = a.points[0] - m * a.points[1];
+
+    for (int x = std::min(a.points[1], b.points[1]); x <= std::max(a.points[1], b.points[1]); ++x)
+    {
+        int y = static_cast<int>(round(m * x + c));
+        addVector(x, y);
+    }
+}
+
 Vector2 Graph::getSize() const
 {
     return _size;

@@ -7,6 +7,7 @@
 #include <Vector2.hpp>
 #include <fstream>
 #include <Aux.hpp>
+#include <cmath>
 
 class Graph
 {
@@ -15,6 +16,7 @@ public:
     Graph(const std::string &file);
     ~Graph();
     void addVector(float, float);
+    void addLine(const Vector2 &a, const Vector2 &b);
     std::list<Vector2>::const_iterator begin() const;
     std::list<Vector2>::const_iterator end() const;
     Vector2 getSize() const;
