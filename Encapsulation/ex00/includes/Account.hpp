@@ -18,9 +18,6 @@ class Account
         double      getBalance() const;
         double      getLoan() const;
         bool        getUsed() const;
-
-        void        setLoan(double);
-        void        addBalance(double);
         class       AccountException;
     private: 
         /*Only bank is able to create Account Objects*/
@@ -31,9 +28,7 @@ class Account
         bool        _used;
 
         Account();
-        void reset();
-        
-        friend class Bank;
+        friend      class Bank;
         friend std::ostream& operator<<(std::ostream&, const Account&);
 
 };

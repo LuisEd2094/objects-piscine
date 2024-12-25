@@ -87,7 +87,11 @@ void Bank::deleteAccount(Account* acc)
 {
     if (!acc)
         return;
-    acc->reset();
+    if (acc->_loan != 0)
+        throw Exception("Account has outstanding amount");
+    acc->_id = 0;
+    acc->_balance = 0;
+    acc->_used = false;
 }
 
 /**
@@ -102,7 +106,9 @@ void Bank::giveLoan(Account * acc, double amount)
         return;
     if (amount + _lent > _liquidity * MAX_BANK_DEBT)
         throw Exception("Bank can't give out a loan since it's reached its max debt!");
-    acc->setLoan(amount);
+    
+    acc->_loan += amount;
+    acc->_balance += amount;
     _lent += amount;
 }
 
@@ -137,6 +143,6 @@ void Bank::deposit(Account * acc, double amount)
 {
     if (!acc)
         return;
-    acc->addBalance(amount);
+    acc->_balance += amount - (amount * BANKS_CUT);
     addToLiquidity(amount);
 }

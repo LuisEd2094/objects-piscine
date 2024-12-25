@@ -38,7 +38,6 @@ class Bank
         void        deposit(Account *, double);
         void        withdraw(Account *, double);
 
-
         double      getLiquidity();
 
 
