@@ -45,7 +45,6 @@ void Graph::addVector(float y, float x)
     _max_x = std::max(_max_x, (int)x);
     _max_y = std::max(_max_y, (int)y);
     _size =  Vector2(_max_y + 1, _max_x + 1);
-    _vectors.sort(compareVectors);
 }
  
 Vector2 Graph::getSize() const
@@ -60,8 +59,10 @@ void Graph::printGraph()
 {
     if (_vectors.empty())
         throw std::runtime_error("No vectors to print");
-    std::list<Vector2>::const_iterator it = _vectors.begin();
-    std::list<Vector2>::const_iterator it2 = _vectors.end();
+    std::list<Vector2> sorted = _vectors;
+    sorted.sort(compareVectors);
+    std::list<Vector2>::const_iterator it = sorted.begin();
+    std::list<Vector2>::const_iterator it2 = sorted.end();
     for (int i = _max_y + 1; i >= 0 ; --i)
     {
         std::cout << i << ' ';

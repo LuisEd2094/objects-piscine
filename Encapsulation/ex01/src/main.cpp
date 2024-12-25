@@ -10,8 +10,12 @@ int main(int argc, char **argv)
         {
             Graph graph;
             graph.addVector(0, 0);
+            graph.printGraph();
+
             graph.addVector(2, 2);
+            graph.printGraph();
             graph.addVector(4, 2);
+
             graph.printGraph();
             std::cout << "Size: " << graph.getSize() << std::endl;
         }
