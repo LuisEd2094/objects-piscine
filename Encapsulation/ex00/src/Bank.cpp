@@ -8,7 +8,7 @@
  * _liquidity is set to INITIAL_BANK_LIQUIDITY
  *
  */
-Bank::Bank() : _liquidity(INITIAL_BANK_LIQUIDITY), _lent(0), _ids(0)
+Bank::Bank() : _liquidity(INITIAL_BANK_LIQUIDITY), _lent(0), _ids(1)
 {
 }
 
@@ -63,7 +63,12 @@ double Bank::getLiquidity()
  */
 Account *Bank::getAccount(std::size_t id)
 {
-    return (_accounts_pool[id]);
+    std::map<std::size_t, Account *>::iterator it = _accounts_pool.find(id);
+    if (it != _accounts_pool.end())
+    {
+        return it->second;
+    }
+    return NULL;
 }
 
 /**
@@ -83,7 +88,7 @@ Account *Bank::operator[](std::size_t id)
 void Bank::deleteAccount(Account *acc)
 {
     if (!acc)
-        return;
+        throw Exception("Account not found");
     if (acc->_loan != 0)
         throw Exception("Account has outstanding amount");
     _accounts_pool.erase(acc->_id);
@@ -99,7 +104,7 @@ void Bank::deleteAccount(Account *acc)
 void Bank::giveLoan(Account *acc, double amount)
 {
     if (!acc)
-        return;
+        throw Exception("Account not found");
     if (amount + _lent > _liquidity * MAX_BANK_DEBT)
         throw Exception("Bank can't give out a loan since it's reached its max debt!");
 
@@ -118,7 +123,7 @@ void Bank::giveLoan(Account *acc, double amount)
 void Bank::makePayment(Account *acc, double amount)
 {
     if (!acc)
-        return;
+        throw Exception("Account not found");
     if (acc->_loan > 0)
     {
         if (amount > acc->_loan)
@@ -137,7 +142,16 @@ void Bank::makePayment(Account *acc, double amount)
 void Bank::deposit(Account *acc, double amount)
 {
     if (!acc)
-        return;
+        throw Exception("Account not found");
     acc->_balance += amount - (amount * BANKS_CUT);
     addToLiquidity(amount);
+}
+
+void Bank::withdraw(Account *acc, double amount)
+{
+    if (!acc)
+        throw Exception("Account not found");
+    if (acc->_balance < amount)
+        throw Exception("Not enough balance");
+    acc->_balance -= amount;
 }

@@ -17,7 +17,6 @@ public:
     std::size_t getId() const;
     double getBalance() const;
     double getLoan() const;
-    bool getUsed() const;
     class AccountException;
 
 private:
@@ -26,7 +25,6 @@ private:
     std::size_t _id;
     double _balance;
     double _loan;
-    bool _used;
 
     Account();
     friend std::ostream &operator<<(std::ostream &, const Account &);

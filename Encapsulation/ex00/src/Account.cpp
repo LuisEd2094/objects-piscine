@@ -5,7 +5,7 @@
  * @brief Construct a new Account::Account object
  *
  */
-Account::Account() : _id(0), _balance(0), _loan(0), _used(false)
+Account::Account() : _id(0), _balance(0), _loan(0)
 {
 }
 
@@ -17,10 +17,6 @@ Account::~Account()
 {
 }
 
-bool Account::getUsed() const
-{
-    return _used;
-}
 
 std::size_t Account::getId() const
 {

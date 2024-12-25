@@ -6,6 +6,24 @@ int main(void)
     try
     {
         Account *acc = bank.createAccount(100);
+
+        Account *test_account = bank[acc->getId()];
+        if (test_account)
+        {
+            std::cout << "Account found!" << std::endl;
+        }
+        else
+        {
+            std::cerr << "Account not found!" << std::endl;
+        }
+
+        bank.giveLoan(acc, 100);
+        std::cout << *acc << std::endl;
+        bank.makePayment(acc, 50);
+        std::cout << *acc << std::endl;
+        bank.withdraw(acc, 50);
+        std::cout << *acc << std::endl;
+        std::cout << "Bank liquidity " << bank.getLiquidity() << std::endl;
         if (acc)
         {
             std::cout << *acc << std::endl;
