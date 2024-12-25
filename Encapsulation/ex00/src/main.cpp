@@ -1,26 +1,31 @@
 #include <Aux.hpp>
 
-
 int main(void)
 {
     Bank bank;
-
-    Account* acc = bank.createAccount(100);
-    if (acc)
+    try
     {
-        std::cout << *acc << std::endl;
-        try 
+        Account *acc = bank.createAccount(100);
+        if (acc)
         {
-            bank.deleteAccount(acc);
+            std::cout << *acc << std::endl;
+            try
+            {
+                bank.deleteAccount(acc);
+            }
+            catch (const Exception &e)
+            {
+                std::cout << e.what() << std::endl;
+                /*make payment*/
+            }
         }
-        catch (const Exception & e)
+        else
         {
-            std::cout << e.what() << std::endl;
-            /*make payment*/
+            std::cerr << "The bank is not able to create any new account. Poor bankers wont be getting your money!" << std::endl;
         }
     }
-    else
+    catch (const Exception &e)
     {
-        std::cerr << "The bank is not able to create any new account. Poor bankers wont be getting your money!" << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }
