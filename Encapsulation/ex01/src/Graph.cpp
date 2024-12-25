@@ -100,7 +100,9 @@ void Graph::printGraph()
             if (it != it2 && i == it->points[0] && j == it->points[1])
             {
                 std::cout << 'X';
-                it++;
+                //handles repeated points
+                while (it != it2 && i == it->points[0] && j == it->points[1])
+                    it++;
             }
             else
                 std::cout << '.';
