@@ -27,9 +27,9 @@ Graph::~Graph() {}
 
 bool compareVectors(Vector2 a, Vector2 b)
 {
-    if (a.points[0] == b.points[0])
-        return a.points[1] < b.points[1];
-    return a.points[0] > b.points[0];
+    if (a.points[1] == b.points[1])
+        return a.points[0] < b.points[0];
+    return a.points[1] > b.points[1];
 }
 
 /**
