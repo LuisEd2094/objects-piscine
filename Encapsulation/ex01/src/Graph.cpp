@@ -133,21 +133,21 @@ std::vector<std::vector<uint8_t> > Graph::generateImage()
 
     std::list<Vector2>::const_iterator it = sorted.begin();
     std::list<Vector2>::const_iterator it2 = sorted.end();
-    for (int i = _max_y + 1; i >= 0; --i)
+    for (int y = _size.points[1]; y >= 0; --y)
     {
-        for (int j = 0; j <= _max_x + 1; ++j)
+        for (int x = 0; x <= _size.points[0]; ++x)
         {
-            if (it != it2 && i == it->points[0] && j == it->points[1])
+            if (it != it2 && x == it->points[0] && y == it->points[1])
             {
                 for (int dy = 0; dy < block_size; ++dy)
                 {
                     for (int dx = 0; dx < block_size; ++dx)
                     {
-                        image[i * block_size + dy][j * block_size + dx] = 255; // Mark as "X" (255 = white)
+                        image[y * block_size + dy][x * block_size + dx] = 255; // Mark as "X" (255 = white)
                     }
                 }
                 // Handle repeated points
-                while (it != it2 && i == it->points[0] && j == it->points[1])
+                while (it != it2 && x == it->points[0] && y == it->points[1])
                     ++it;
             }
         }
