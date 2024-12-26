@@ -23,7 +23,7 @@ public:
     std::list<Vector2>::const_iterator end() const;
     Vector2 getSize() const;
     void printGraph();
-    std::vector<std::vector<uint8_t> > generateImage();
+    std::vector<std::vector<std::vector<uint8_t> > > generateImage();
 
 private:
     std::list<Vector2> _vectors;

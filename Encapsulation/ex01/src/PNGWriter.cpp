@@ -1,8 +1,4 @@
 #include <PNGWriter.hpp>
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <stdint.h>
 
 void PNGWriter::writeBigEndian(std::ofstream &file, uint32_t value)
 {
@@ -66,7 +62,7 @@ void PNGWriter::writeIHDR(std::ofstream &file, uint32_t width, uint32_t height)
     writeBigEndian(ihdrChunk, width);
     writeBigEndian(ihdrChunk, height);
     ihdrChunk.push_back(8); // Bit depth
-    ihdrChunk.push_back(0); // Color type (grayscale)
+    ihdrChunk.push_back(2); // Color type (TrueColor RGB)
     ihdrChunk.push_back(0); // Compression method
     ihdrChunk.push_back(0); // Filter method
     ihdrChunk.push_back(0); // Interlace method
@@ -74,20 +70,44 @@ void PNGWriter::writeIHDR(std::ofstream &file, uint32_t width, uint32_t height)
     writeChunk(file, ihdrChunk);
 }
 
-void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<uint8_t> > &image)
+void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<std::vector<uint8_t> > > &image)
 {
-    std::vector<unsigned char> idat;
-    idat.push_back('I');
-    idat.push_back('D');
-    idat.push_back('A');
-    idat.push_back('T');
+    std::vector<unsigned char> uncompressed_data;
 
     for (size_t y = 0; y < image.size(); y++)
     {
-        idat.push_back(1);
-        idat.insert(idat.end(), image[y].begin(), image[y].end());
+        uncompressed_data.push_back(0); 
+
+        for (size_t x = 0; x < image[y].size(); x++)
+        {
+            uncompressed_data.push_back(image[y][x][0]); // Red
+            uncompressed_data.push_back(image[y][x][1]); // Green
+            uncompressed_data.push_back(image[y][x][2]); // Blue
+        }
     }
-    writeChunk(file, idat);
+
+    // Step 2: Compress the uncompressed image data using zlib
+    uLongf compressed_size = compressBound(uncompressed_data.size()); // max size after compression
+    std::vector<unsigned char> compressed_data(compressed_size);
+
+    int result = compress(compressed_data.data(), &compressed_size, uncompressed_data.data(), uncompressed_data.size());
+
+    if (result != Z_OK)
+    {
+        std::cerr << "Compression failed!" << std::endl;
+        return;
+    }
+
+    compressed_data.resize(compressed_size); // Resize to the actual compressed size
+
+    std::vector<unsigned char> idat_chunk;
+    idat_chunk.push_back('I');
+    idat_chunk.push_back('D');
+    idat_chunk.push_back('A');
+    idat_chunk.push_back('T');
+
+    idat_chunk.insert(idat_chunk.end(), compressed_data.begin(), compressed_data.end());
+    writeChunk(file, idat_chunk);
 }
 void PNGWriter::writeIEND(std::ofstream &file)
 {
@@ -97,7 +117,7 @@ void PNGWriter::writeIEND(std::ofstream &file)
     writeBigEndian(file, crc);
 }
 
-void PNGWriter::writePNG(const char *filename, const std::vector<std::vector<uint8_t> > &image)
+void PNGWriter::writePNG(const char *filename, const std::vector<std::vector<std::vector<uint8_t> > > &image)
 {
     std::ofstream file(filename, std::ios::binary);
 

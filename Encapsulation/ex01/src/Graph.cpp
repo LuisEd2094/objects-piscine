@@ -121,12 +121,16 @@ void Graph::printGraph()
  * @return 2D vector image
  */
 
-std::vector<std::vector<uint8_t> > Graph::generateImage()
+std::vector<std::vector<std::vector<uint8_t>>> Graph::generateImage()
 {
     if (_vectors.empty())
         throw std::runtime_error("No vectors to generate image");
-    int block_size = 32;
-    std::vector<std::vector<uint8_t> > image((_size.points[1] + 1) * block_size, std::vector<uint8_t>((_size.points[0] + 1) * block_size, 0));
+    int block_size = 8;
+    int width = (_size.points[0] + 1) * block_size;
+    int height = (_size.points[1] + 1) * block_size;
+    std::vector<std::vector<std::vector<uint8_t>>> image(height,
+                                                         std::vector<std::vector<uint8_t>>(width,
+                                                                                           std::vector<uint8_t>(3, 0)));
 
     std::list<Vector2> sorted = _vectors;
     sorted.sort(compareVectors);
@@ -143,7 +147,12 @@ std::vector<std::vector<uint8_t> > Graph::generateImage()
                 {
                     for (int dx = 0; dx < block_size; ++dx)
                     {
-                        image[y * block_size + dy][x * block_size + dx] = 255; // Mark as "X" (255 = white)
+                        std::vector<uint8_t> pixel; // RGB values
+                        pixel.push_back(255);
+                        pixel.push_back(150);
+                        pixel.push_back(150);
+
+                        image[y * block_size + dy][x * block_size + dx] = pixel;
                     }
                 }
                 // Handle repeated points

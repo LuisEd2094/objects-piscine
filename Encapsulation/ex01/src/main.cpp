@@ -11,10 +11,10 @@ int main(int argc, char **argv)
         {
             Graph graph;
             graph.addVector(0, 1);
-            /* graph.addVector(2, 2);
+            graph.addVector(2, 2);
             graph.addVector(4, 2);
             graph.addVector(4, 2);
-            graph.addLine(Vector2(0, 0), Vector2(2, 9)); */
+            graph.addLine(Vector2(0, 0), Vector2(2, 9));
 
             graph.printGraph();
             std::cout << "Size: " << graph.getSize() << std::endl;

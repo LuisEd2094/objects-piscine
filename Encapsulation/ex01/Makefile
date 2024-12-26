@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME        = dont_know_what_im_doing
-CFLAGS      = -std=c++98 -pedantic -g -Wall -Wextra -Werror
+CFLAGS      =  #-std=c++98 -pedantic -g -Wall -Wextra -Werror
 TESTFLAGS	= -lgtest -lgtest_main  -fprofile-arcs -ftest-coverage
 CC			= c++
 RM          = rm -rf
@@ -49,7 +49,7 @@ all: $(NAME)
 
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)  -lz
 	@echo "$(LIGHT_GREEN)Created $(NAME) executable$(DEF_COLOR)"
 	
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.cpp | $(MAKE_OBJ_DIR)
