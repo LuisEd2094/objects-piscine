@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME        = dont_know_what_im_doing
-CFLAGS      = -std=c++98 -pedantic -g -Wall -Wextra -Werror
+CFLAGS      = #-std=c++98 -pedantic -g -Wall -Wextra -Werror
 TESTFLAGS	= -lgtest -lgtest_main  -fprofile-arcs -ftest-coverage
 CC			= c++
 RM          = rm -rf
@@ -39,7 +39,7 @@ LIGHT_GREEN = \033[1;92m
 
 ###
 
-SRC        		=	main.cpp Graph.cpp
+SRC        		=	main.cpp Graph.cpp PNGWriter.cpp
 				
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d))
 

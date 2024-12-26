@@ -39,7 +39,6 @@
                     "ignoreFailures": true
                 }
             ],
-	        "args": [""],
         },
         {
             "preLaunchTask": "Build Relationship Ex00",

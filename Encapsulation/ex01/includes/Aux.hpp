@@ -1,6 +1,5 @@
-#pragma once
-#include <iostream>
-#include <vector>
+#ifndef AUX_HPP
+#   define AUX_HPP
 
 inline std::vector<std::string> split(const std::string& str, char delimiter) {
     std::vector<std::string> result;
@@ -32,3 +31,5 @@ inline bool is_only_digits(const std::string& str) {
     }
     return true;
 }
+
+#endif
