@@ -1,6 +1,8 @@
 #ifndef AUX_HPP
 #   define AUX_HPP
 
+#include <vector>
+
 inline std::vector<std::string> split(const std::string& str, char delimiter) {
     std::vector<std::string> result;
     std::string temp;

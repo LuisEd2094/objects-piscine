@@ -71,11 +71,10 @@ void PNGWriter::writeIHDR(std::ofstream &file, uint32_t width, uint32_t height)
     ihdrChunk.push_back(0); // Filter method
     ihdrChunk.push_back(0); // Interlace method
 
-    uint32_t crc = crc32(ihdrChunk.data(), ihdrChunk.size());
     writeChunk(file, ihdrChunk);
 }
 
-void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<uint8_t>> &image)
+void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<uint8_t> > &image)
 {
     std::vector<unsigned char> idat;
     idat.push_back('I');
@@ -85,10 +84,9 @@ void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<uin
 
     for (size_t y = 0; y < image.size(); y++)
     {
-        idat.push_back(0);
+        idat.push_back(1);
         idat.insert(idat.end(), image[y].begin(), image[y].end());
     }
-    uint32_t crc = crc32(idat.data(), idat.size());
     writeChunk(file, idat);
 }
 void PNGWriter::writeIEND(std::ofstream &file)
@@ -99,7 +97,7 @@ void PNGWriter::writeIEND(std::ofstream &file)
     writeBigEndian(file, crc);
 }
 
-void PNGWriter::writePNG(const char *filename, const std::vector<std::vector<uint8_t>> &image)
+void PNGWriter::writePNG(const char *filename, const std::vector<std::vector<uint8_t> > &image)
 {
     std::ofstream file(filename, std::ios::binary);
 

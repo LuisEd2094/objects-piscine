@@ -1,17 +1,14 @@
 #include <Graph.hpp>
 
-Graph::Graph():
-        _size(Vector2(0,0)),
-        _max_x(0),
-        _max_y(0)
+Graph::Graph() : _size(Vector2(0, 0)),
+                 _max_x(0),
+                 _max_y(0)
 {
-
 }
 
-Graph::Graph(const std::string &file):
-        _size(Vector2(0,0)),
-        _max_x(0),
-        _max_y(0)
+Graph::Graph(const std::string &file) : _size(Vector2(0, 0)),
+                                        _max_x(0),
+                                        _max_y(0)
 {
     std::ifstream ifs(file.c_str());
     if (!ifs.is_open())
@@ -26,7 +23,7 @@ Graph::Graph(const std::string &file):
     }
     ifs.close();
 }
-Graph::~Graph(){}
+Graph::~Graph() {}
 
 bool compareVectors(Vector2 a, Vector2 b)
 {
@@ -39,14 +36,14 @@ bool compareVectors(Vector2 a, Vector2 b)
  * @brief Adds new vector to the graph
  * Updates the size of the graph
  */
-void Graph::addVector(float y, float x)
+void Graph::addVector(float x, float y)
 {
-    _vectors.push_back(Vector2(y,x));
+    _vectors.push_back(Vector2(x, y));
     _max_x = std::max(_max_x, (int)x);
     _max_y = std::max(_max_y, (int)y);
-    _size =  Vector2(_max_y + 1, _max_x + 1);
+    _size = Vector2(_max_x + 1, _max_y + 1);
 }
- 
+
 /**
  * @brief Adds a line to the graph using the Bresenham's line algorithm
  * Updates the size of the graph
@@ -58,7 +55,8 @@ void Graph::addLine(const Vector2 &a, const Vector2 &b)
     int dy = b.points[0] - a.points[0];
 
     // Handle infinite slope
-    if (dx == 0) {
+    if (dx == 0)
+    {
         for (int y = std::min(a.points[0], b.points[0]); y <= std::max(a.points[0], b.points[0]); ++y)
         {
             addVector(a.points[1], y);
@@ -92,16 +90,16 @@ void Graph::printGraph()
     sorted.sort(compareVectors);
     std::list<Vector2>::const_iterator it = sorted.begin();
     std::list<Vector2>::const_iterator it2 = sorted.end();
-    for (int i = _max_y + 1; i >= 0 ; --i)
+    for (int y = _size.points[1]; y >= 0; --y)
     {
-        std::cout << i << ' ';
-        for (int j = 0; j <= _max_x + 1; ++j)
+        std::cout << y << ' ';
+        for (int x = 0; x <= _size.points[0]; ++x)
         {
-            if (it != it2 && i == it->points[0] && j == it->points[1])
+            if (it != it2 && x == it->points[0] && y == it->points[1])
             {
                 std::cout << 'X';
-                //handles repeated points
-                while (it != it2 && i == it->points[0] && j == it->points[1])
+                // handles repeated points
+                while (it != it2 && x == it->points[0] && y == it->points[1])
                     it++;
             }
             else
@@ -111,10 +109,48 @@ void Graph::printGraph()
         std::cout << std::endl;
     }
     std::cout << ' ';
-    for (int i = 0; i <= _max_x + 1; ++i)
+    for (int i = 0; i <= _size.points[0]; ++i)
     {
         std::cout << ' ' << i;
     }
     std::cout << std::endl;
 }
 
+/**
+ * @brief Generates 2D vector image from the graph
+ * @return 2D vector image
+ */
+
+std::vector<std::vector<uint8_t> > Graph::generateImage()
+{
+    if (_vectors.empty())
+        throw std::runtime_error("No vectors to generate image");
+    int block_size = 32;
+    std::vector<std::vector<uint8_t> > image((_size.points[1] + 1) * block_size, std::vector<uint8_t>((_size.points[0] + 1) * block_size, 0));
+
+    std::list<Vector2> sorted = _vectors;
+    sorted.sort(compareVectors);
+
+    std::list<Vector2>::const_iterator it = sorted.begin();
+    std::list<Vector2>::const_iterator it2 = sorted.end();
+    for (int i = _max_y + 1; i >= 0; --i)
+    {
+        for (int j = 0; j <= _max_x + 1; ++j)
+        {
+            if (it != it2 && i == it->points[0] && j == it->points[1])
+            {
+                for (int dy = 0; dy < block_size; ++dy)
+                {
+                    for (int dx = 0; dx < block_size; ++dx)
+                    {
+                        image[i * block_size + dy][j * block_size + dx] = 255; // Mark as "X" (255 = white)
+                    }
+                }
+                // Handle repeated points
+                while (it != it2 && i == it->points[0] && j == it->points[1])
+                    ++it;
+            }
+        }
+    }
+    return (image);
+}
