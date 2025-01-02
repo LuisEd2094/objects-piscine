@@ -16,33 +16,29 @@ Workshop::~Workshop()
     for (; it != _students.end(); ++it)
     {
         (*it)->removeWorkShop(this);
-    }  
-
+    }
 }
 
 void Workshop::executeWorkDay()
 {
-    for (std::list<Worker *>::iterator it = _students.begin() ; it != _students.end(); ++it)
+    for (std::list<Worker *>::iterator it = _students.begin(); it != _students.end(); ++it)
     {
         (*it)->work();
     }
 }
 
-void Workshop::signOff(Worker* worker)
+void Workshop::signOff(Worker *worker)
 {
     _students.remove_if(WorkerMatcher(worker));
 }
 
-bool Workshop::canSignUp(Worker * worker)
+bool Workshop::canSignUp(Worker *worker)
 {
-    if (_needs_shovel && worker->GetTool<Shovel>())
-        return true;
-    else if (_needs_hammer && worker->GetTool<Hammer>())
-        return true;
-    return false;
+    return ((_needs_shovel && worker->GetTool<Shovel>()) ||
+            (_needs_hammer && worker->GetTool<Hammer>()));
 }
 
-void Workshop::signUp(Worker * worker)
+void Workshop::signUp(Worker *worker)
 {
     std::list<Worker *>::iterator it = std::find(_students.begin(), _students.end(), worker);
 
@@ -53,6 +49,5 @@ void Workshop::signUp(Worker * worker)
             _students.push_back(worker);
             worker->addWorkshop(this);
         }
-
     }
 }
