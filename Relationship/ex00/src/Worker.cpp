@@ -12,12 +12,12 @@ Worker::Worker(): coordonnee(0,0,0), stat(0,0)
 Worker::~Worker()
 {
     std::list<Tool *>::iterator it = _tools.begin();
+    std::list<Workshop *>::iterator it2 = _workshops.begin();
 
     for (; it != _tools.end(); ++it)
     {
         (*it)->resetWorker();
     }
-    std::list<Workshop *>::iterator it2 = _workshops.begin();
     for (; it2 != _workshops.end(); ++it2)
     {
         (*it2)->signOff(this);
@@ -38,22 +38,7 @@ void Worker::removeWorkShop(Workshop *workshop)
 void Worker::resetTool(Tool * tool)
 {
     _tools.remove_if(ToolMatcher(tool));
-
-    std::list<Workshop *>::iterator it = _workshops.begin();
-
-    while (it != _workshops.end())
-    {
-        if (!(*it)->canSignUp(this))
-        {
-            (*it)->signOff(this);
-            it = _workshops.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
-
+    _workshops.remove_if(WorkshopRemover(this));
 }
 
 /**

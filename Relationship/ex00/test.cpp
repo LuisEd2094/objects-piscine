@@ -253,7 +253,23 @@ TEST_F(WorkerTest, setToolTest)
     EXPECT_EQ(hammer.worker, &worker);
 }
 
+TEST_F(WorkerTest, removeToolTest)
+{
+    worker.setTool(&shovel);
 
+    EXPECT_EQ(worker._tools.front(), &shovel);
+    EXPECT_EQ(shovel.worker, &worker);
+
+    worker.resetTool(&shovel2);
+
+    EXPECT_EQ(worker._tools.front(), &shovel);
+
+    worker.resetTool(&shovel);
+
+    EXPECT_EQ(worker._tools.size(), 0);
+    EXPECT_TRUE(shovel.worker == NULL);
+    
+}
 TEST_F(WorkerTest, changeHands)
 {
     worker.setTool(&shovel);
