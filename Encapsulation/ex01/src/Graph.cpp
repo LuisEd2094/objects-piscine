@@ -121,15 +121,15 @@ void Graph::printGraph()
  * @return 2D vector image
  */
 
-std::vector<std::vector<std::vector<uint8_t>>> Graph::generateImage()
+std::vector<std::vector<std::vector<uint8_t> > > Graph::generateImage()
 {
     if (_vectors.empty())
         throw std::runtime_error("No vectors to generate image");
     int block_size = 8;
     int width = (_size.points[0] + 1) * block_size;
     int height = (_size.points[1] + 1) * block_size;
-    std::vector<std::vector<std::vector<uint8_t>>> image(height,
-                                                         std::vector<std::vector<uint8_t>>(width,
+    std::vector<std::vector<std::vector<uint8_t> > > image(height,
+                                                         std::vector<std::vector<uint8_t> >(width,
                                                                                            std::vector<uint8_t>(3, 0)));
 
     std::list<Vector2> sorted = _vectors;
