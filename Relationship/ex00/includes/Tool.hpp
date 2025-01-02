@@ -9,7 +9,7 @@ class Worker;
 class Tool
 {
     public:
-        virtual void use () = 0;
+        virtual void use() = 0;
         Tool() : numberOfUses(0), worker(NULL){};
         virtual ~Tool() {if (worker) {worker->resetTool(this);}};
 

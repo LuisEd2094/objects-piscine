@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = RelationShip
+NAME        =  putting_it_into_practice
 CFLAGS      = -std=c++98 -pedantic -g -Wall -Wextra -Werror
 TESTFLAGS	= -lgtest -lgtest_main  -fprofile-arcs -ftest-coverage
 CC			= c++

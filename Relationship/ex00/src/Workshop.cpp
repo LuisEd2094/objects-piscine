@@ -35,9 +35,9 @@ void Workshop::signOff(Worker* worker)
 
 bool Workshop::canSignUp(Worker * worker)
 {
-    if (_needs_shovel && worker->GetToolShovel())
+    if (_needs_shovel && worker->GetTool<Shovel>())
         return true;
-    else if (_needs_hammer && worker->GetToolHammer())
+    else if (_needs_hammer && worker->GetTool<Hammer>())
         return true;
     return false;
 }

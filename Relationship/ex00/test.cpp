@@ -22,6 +22,19 @@ class WorkerTest: public ::testing::Test
     Shovel shovel2;
     Hammer hammer;
 };
+class ToolTest: public ::testing::Test
+{
+    protected:
+    void SetUp() override
+    {
+
+    }
+    void TearDown() override {
+    }
+    Shovel shovel;
+    Shovel shovel2;
+    Hammer hammer;
+};
 
 
 class WorkShopTest: public ::testing::Test
@@ -117,6 +130,21 @@ class DestructTest: public ::testing::Test
 };
 
 
+
+TEST_F(ToolTest, testTools)
+{
+    EXPECT_EQ(shovel.numberOfUses, 0);
+    EXPECT_EQ(hammer.numberOfUses, 0);
+
+    shovel.use();
+    EXPECT_EQ(shovel.numberOfUses, 1);
+    hammer.use();
+    EXPECT_EQ(hammer.numberOfUses, 1);
+    hammer.use();
+    EXPECT_EQ(hammer.numberOfUses, 2);
+
+}
+
 TEST_F(WorkShopDeconstructionTest, destructWorkers)
 {
     workshopShovel->signUp(worker);
@@ -188,7 +216,7 @@ TEST_F(DestructTest, destructionToolTest)
     delete shovel;
     shovel = NULL;
 
-    EXPECT_EQ(worker->_tool.size(), 0);
+    EXPECT_EQ(worker->_tools.size(), 0);
 
     worker->setTool(hammer);
     worker->setTool(shovel2);
@@ -198,29 +226,29 @@ TEST_F(DestructTest, destructionToolTest)
     delete shovel2;
     shovel2 = NULL;
     
-    EXPECT_EQ(worker->_tool.size(), 0);
+    EXPECT_EQ(worker->_tools.size(), 0);
 }
 
 TEST_F(WorkerTest, setToolTest)
 {
     worker.setTool(&shovel);
 
-    EXPECT_EQ(worker._tool.front(), &shovel);
+    EXPECT_EQ(worker._tools.front(), &shovel);
     EXPECT_EQ(shovel.worker, &worker);
 
     worker.setTool(&shovel2);
 
 
-    EXPECT_EQ(worker._tool.front(), &shovel);
-    EXPECT_EQ(worker._tool.back(), &shovel2);
+    EXPECT_EQ(worker._tools.front(), &shovel);
+    EXPECT_EQ(worker._tools.back(), &shovel2);
 
     EXPECT_EQ(shovel.worker, &worker);
     EXPECT_EQ(shovel2.worker, &worker);
 
     worker.setTool(&hammer);
 
-    EXPECT_EQ(worker._tool.front(), &shovel);
-    EXPECT_EQ(worker._tool.back(), &hammer);
+    EXPECT_EQ(worker._tools.front(), &shovel);
+    EXPECT_EQ(worker._tools.back(), &hammer);
 
     EXPECT_EQ(hammer.worker, &worker);
 }
@@ -232,9 +260,9 @@ TEST_F(WorkerTest, changeHands)
     worker2.setTool(&shovel);
 
     EXPECT_EQ(shovel.worker, &worker2);
-    EXPECT_EQ(worker._tool.size(), 0);
-    EXPECT_EQ(worker2._tool.size(), 1);
-    EXPECT_EQ(worker2._tool.front(), &shovel);
+    EXPECT_EQ(worker._tools.size(), 0);
+    EXPECT_EQ(worker2._tools.size(), 1);
+    EXPECT_EQ(worker2._tools.front(), &shovel);
 
     worker2.setTool(&shovel2);
     worker2.setTool(&hammer);
@@ -243,12 +271,12 @@ TEST_F(WorkerTest, changeHands)
     EXPECT_EQ(shovel.worker, &worker2);
     EXPECT_EQ(shovel2.worker, &worker);
     EXPECT_EQ(hammer.worker, &worker2);
-    EXPECT_EQ(worker._tool.size(), 1);
-    EXPECT_EQ(worker._tool.front(), &shovel2);
+    EXPECT_EQ(worker._tools.size(), 1);
+    EXPECT_EQ(worker._tools.front(), &shovel2);
 
-    EXPECT_EQ(worker2._tool.size(), 2);
-    EXPECT_EQ(worker2._tool.front(), &shovel);
-    EXPECT_EQ(worker2._tool.back(), &hammer);
+    EXPECT_EQ(worker2._tools.size(), 2);
+    EXPECT_EQ(worker2._tools.front(), &shovel);
+    EXPECT_EQ(worker2._tools.back(), &hammer);
 }
 
 
@@ -256,13 +284,13 @@ TEST_F(WorkerTest, getShovel)
 {
     worker.setTool(&shovel);
     
-    EXPECT_EQ(worker.GetToolShovel(), &shovel);
+    EXPECT_EQ(worker.GetTool<Shovel>(), &shovel);
 
     worker2.setTool(&shovel2);
     worker2.setTool(&shovel);
 
-    EXPECT_EQ(worker.GetToolShovel(), nullptr);
-    EXPECT_EQ(worker2.GetToolShovel(), &shovel2);
+    EXPECT_EQ(worker.GetTool<Shovel>(), nullptr);
+    EXPECT_EQ(worker2.GetTool<Shovel>(), &shovel2);
 
 
 }
@@ -271,7 +299,7 @@ TEST_F(WorkerTest, getHammer)
 {
     worker.setTool(&hammer);
     
-    EXPECT_EQ(worker.GetToolHammer(), &hammer);
+    EXPECT_EQ(worker.GetTool<Hammer>(), &hammer);
 
 }
 
@@ -281,11 +309,11 @@ TEST_F(WorkerTest, getBoth)
     worker.setTool(&shovel);
     worker.setTool(&shovel2);
 
-    EXPECT_EQ(worker.GetToolHammer(), &hammer);
-    EXPECT_EQ(worker.GetToolShovel(), &shovel);
+    EXPECT_EQ(worker.GetTool<Hammer>(), &hammer);
+    EXPECT_EQ(worker.GetTool<Shovel>(), &shovel);
 
-    EXPECT_EQ(worker2.GetToolHammer(), nullptr);
-    EXPECT_EQ(worker2.GetToolShovel(), nullptr);
+    EXPECT_EQ(worker2.GetTool<Hammer>(), nullptr);
+    EXPECT_EQ(worker2.GetTool<Shovel>(), nullptr);
 }
 
 
