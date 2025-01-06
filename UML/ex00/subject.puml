@@ -1,0 +1,159 @@
+@startuml
+
+skin rose
+
+title subject
+
+abstract class  LinkablePart{
++void execute(float p_pression)
+
+}
+
+class Injector extends LinkablePart {
+  - ExplosionChamber *
+  + void execute(float
+p_pression)
+
+}
+
+class Wheel {
+  +void executeRotation(float p_force)
+}
+
+class Gear{
+-int demultiplier
+}
+
+class Singleton<T> {
+}
+
+class GearLever extends Singleton<GearLever> {
+    - Gear[]
+    - int level
+    + void change()
+    + Gear* activeGear()
+}
+
+GearLever *-- Gear
+
+class Transmission {
+    - std::vector<Wheel*>
+    + void activate(float p_force)
+}
+
+Transmission o-- Wheel
+
+class Crankshaft {
+  - Transmission*
+  + void receiveForce(float p_volume)
+
+}
+
+Crankshaft --> Transmission
+
+class ExplosionChamber {
+  - Crankshaft*
+  + void fill(float p_volume)
+}
+
+ExplosionChamber --> Crankshaft
+
+
+class Motor{
+  - Injector 
+  - ExplosionChamber
+  - Crankshaft
+  + void connectToTransmission(Transmission*
+p_transmission)
+}
+
+Motor *-- Injector
+Motor *-- ExplosionChamber
+Motor *-- Crankshaft
+Motor --> Transmission
+
+
+class Pedal {
+  - LinkablePart*
+  + void setTarget(LinkablePart* p_part)
+  + void use(float p_pression
+}
+Pedal --> LinkablePart
+
+class Direction {
+  -  Wheel[]
+  + void turn(float p_angle)
+}
+
+Direction o-- Wheel
+
+class DAE {
+  - Direction *
+  - float force
+  + use(float p_angle)
+}
+
+DAE --> Direction
+
+class SteerWheel{
+  - DAE *
+  + void turn(float p_angle)
+}
+
+SteerWheel --> DAE
+
+class Brake {
+  - Wheel *
+  + void execute(float p_force)
+  + void attackWheel(Wheel* p_wheel)
+}
+
+Brake --> Wheel
+
+class BrakeController extends LinkablePart {
+  - Brake[]
+  + void execute(float p_pression)
+
+}
+
+BrakeController o-- Brake
+
+class Cockpit {
+    - Pedal  
+    - SteerWheel 
+    - GearLever 
+    + void managePedal()
+    + void manageGearLever()
+    + void manageSteerWheel()
+}
+
+Cockpit o-- Pedal
+Cockpit o-- SteerWheel
+Cockpit o-- GearLever
+
+
+class Electronics {
+  - DAE
+}
+
+Electronics *-- DAE
+
+class Car {
+    - BrakeController
+    - Direction 
+    - Transmission
+    - Motor
+    - Electronics
+    - Cockpit
+    + void operate() 
+}
+
+Car o-- BrakeController
+Car o-- Direction
+Car o-- Transmission
+Car o-- Motor
+Car o-- Electronics
+Car o-- Cockpit
+
+
+@enduml
