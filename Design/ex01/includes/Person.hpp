@@ -6,13 +6,10 @@
 #include "enums.hpp"
 
 class Room;
-class Form;
-class Course;
-class Classroom;
 
 class Person
 {
-private:
+protected:
     std::string _name;
     Room *_currentRoom;
 
@@ -21,15 +18,4 @@ public:
     Room *room() { return (_currentRoom); }
 };
 
-
-class Student : public Person
-{
-private:
-    std::vector<Course *> _subscribedCourse;
-
-public:
-    void attendClass(Classroom *p_classroom);
-    void exitClass();
-    void graduate(Course *p_course);
-};
 #endif

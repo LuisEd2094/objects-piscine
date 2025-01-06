@@ -10,8 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = DivideAndRule
-CFLAGS      = -std=c++98 -pedantic -g -Wall -Wextra -Werror
+NAME        = Singleton
+CFLAGS      = -pedantic -g #-Wall -Wextra -Werror
 TESTFLAGS	= -lgtest -lgtest_main  -fprofile-arcs -ftest-coverage
 CC			= c++
 RM          = rm -rf

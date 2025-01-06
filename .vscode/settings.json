@@ -64,6 +64,8 @@
         "variant": "cpp",
         "fstream": "cpp",
         "bitset": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "condition_variable": "cpp",
+        "mutex": "cpp"
     }
 }
