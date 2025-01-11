@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME        = Singleton
-CFLAGS      = -pedantic -g #-Wall -Wextra -Werror
+CFLAGS      = -pedantic -g -Wall -Wextra -Werror
 TESTFLAGS	= -lgtest -lgtest_main  -fprofile-arcs -ftest-coverage
 CC			= c++
 RM          = rm -rf

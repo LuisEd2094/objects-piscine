@@ -15,7 +15,7 @@ private:
 	std::vector<Person *> _occupants;
 
 public:
-	Room();
+	Room()	{ ID = 0; }
 	bool canEnter(Person *);
 	void enter(Person *);
 	void exit(Person *);

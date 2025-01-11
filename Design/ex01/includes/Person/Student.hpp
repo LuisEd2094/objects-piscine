@@ -13,8 +13,7 @@ private:
 
 public:
     Student(std::string p_name): Person(p_name) {};
-
-    std::string getName() const { return _name; };
+    Student(std::string p_name, Room *p_classroom): Person(p_name, p_classroom) {};
     void attendClass(Classroom *p_classroom);
     void exitClass();
     void graduate(Course *p_course);

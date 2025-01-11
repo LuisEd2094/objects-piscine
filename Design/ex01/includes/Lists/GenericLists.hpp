@@ -12,10 +12,20 @@ public:
         Singleton<List<T>>::getInstance().push_back(t);
     }
 
-    T const operator[](int index) const
+    T const &operator[](int index) const
     {
         return Singleton<List<T>>::getInstance()[index];
     }
+
+    T  &operator[](int index)
+    {
+        return Singleton<List<T>>::getInstance()[index];
+    }
+    size_t size() const
+    {
+        return Singleton<List<T>>::getInstance().size();
+    }
+
 };
 
 #endif

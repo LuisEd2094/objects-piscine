@@ -13,34 +13,20 @@ private:
     Singleton(const Singleton&) = delete;
     Singleton& operator=(const Singleton&) = delete;
 
-    static T* instance;
     static std::mutex mutex_;
 public:
     static T& getInstance()
     {
-        if (instance == nullptr)
-        {
-            std::lock_guard<std::mutex> lock(mutex_);
-            if (instance == nullptr)
-            {
-                instance = new T();
-            }
-        }
-        return *instance;
+        std::lock_guard<std::mutex> lock(mutex_);
+        static T instance; 
+        return instance;
     }
     ~Singleton()
     {
-        if (instance != nullptr)
-        {
-            std::lock_guard<std::mutex> lock(mutex_);
-            delete instance;
-            instance = nullptr;
-        }
+
     }
 };
 
-template <typename T>
-T* Singleton<T>::instance = nullptr;
 
 template <typename T>
 std::mutex Singleton<T>::mutex_;
