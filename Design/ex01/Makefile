@@ -20,7 +20,7 @@ OBJS_PATH	= obj/
 DEPS_PATH	= deps/
 
 MAKE_OBJ_DIR	=	$(OBJS_PATH) $(DEPS_PATH)
-INCS        = -I./includes
+INCS        = $(shell find ./includes -type d -exec echo -I{} \;)
 
 
 #Colors
@@ -64,12 +64,16 @@ $(MAKE_OBJ_DIR):
 
 -include $(DEPS)
 
-TEST_SRC = test.cpp 
+TEST_PATH	= tests/
+
+TEST_SRC = test.cpp test_lists.cpp 
+
+TEST_SRC := $(addprefix $(TEST_PATH), $(TEST_SRC))
 
 TEST_EXEC = my_test
 
 $(TEST_EXEC): $(TEST_SRC)
-	$(CC) $(DEFINES) $(LDFLAGS) -o $(TEST_EXEC) $(TEST_SRC) $(TESTFLAGS) $(INCS) 
+		$(CC) $(DEFINES) -g -o $(TEST_EXEC) $(TEST_SRC) $(TESTFLAGS) $(INCS) 
 
 
 
@@ -78,6 +82,7 @@ test: $(TEST_EXEC)
 	lcov --capture --directory . --output-file coverage.info
 	lcov --remove coverage.info '/usr/*' --output-file coverage.info
 	genhtml coverage.info --output-directory coverage_report
+
 	
 
 

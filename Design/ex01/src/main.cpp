@@ -11,11 +11,8 @@ int main()
     std::cout << &list << std::endl;
     std::cout << &list2 << std::endl;
 
-    list.addStudent(Student("John"));
+    list.push_back(Student("John"));
 
-    for (const auto& student : list.getStudents())
-    {
-        std::cout << student.getName() << std::endl;
-    }
+    std::cout << list[0].getName() << std::endl;
     return 0;
 }

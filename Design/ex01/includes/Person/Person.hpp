@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include "enums.hpp"
+#include <enums.hpp>
 
 class Room;
 
@@ -12,9 +12,8 @@ class Person
 protected:
     std::string _name;
     Room *_currentRoom;
-
+    Person(std::string p_name) : _name(p_name), _currentRoom(nullptr) {};
 public:
-    Person(std::string p_name);
     Room *room() { return (_currentRoom); }
 };
 

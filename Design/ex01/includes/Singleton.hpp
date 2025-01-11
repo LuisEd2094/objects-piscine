@@ -15,7 +15,6 @@ private:
 
     static T* instance;
     static std::mutex mutex_;
-
 public:
     static T& getInstance()
     {
@@ -33,7 +32,9 @@ public:
     {
         if (instance != nullptr)
         {
+            std::lock_guard<std::mutex> lock(mutex_);
             delete instance;
+            instance = nullptr;
         }
     }
 };

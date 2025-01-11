@@ -14,7 +14,7 @@ private:
 public:
     Student(std::string p_name): Person(p_name) {};
 
-    std::string getName() const { return _name; }
+    std::string getName() const { return _name; };
     void attendClass(Classroom *p_classroom);
     void exitClass();
     void graduate(Course *p_course);
