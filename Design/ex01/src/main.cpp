@@ -19,16 +19,21 @@ void testSingleton()
 {
     std::cout << "Singleton test" << std::endl
               << std::endl;
-    StudentList list = Singleton<StudentList>::getInstance();
-    StudentList list2 = Singleton<StudentList>::getInstance();
+    StudentList list;
+    StudentList list2;
+    StudentList list3;
+
 
     std::cout << &list << std::endl;
     std::cout << &list2 << std::endl;
+    std::cout << &list3 << std::endl;
 
     list.push_back(Student("John"));
 
-    std::cout << list[0].getName() << std::endl
-              << std::endl;
+    std::cout << list[0].getName() << std::endl;
+    std::cout << list2[0].getName() << std::endl;
+    std::cout << list3[0].getName() << std::endl;
+
 }
 
 void testLists()
@@ -57,7 +62,6 @@ void testLists()
     courseList.push_back(Course("Physics"));
     courseList.push_back(Course("Chemistry"));
 
-
     for (size_t i = 0; i < courseList.size(); ++i)
     {
         courseList[i].subscribe(&(studentList[0]));
@@ -71,7 +75,6 @@ void testLists()
             std::cout << courseList[i][j]->getName() << std::endl;
         };
     }
-
 
     for (size_t i = 0; i < studentList.size(); ++i)
     {

@@ -1,7 +1,7 @@
 #ifndef SINGLETON_HPP
 #define SINGLETON_HPP
 
-#include <mutex> // For thread-safety (C++11 and above)
+#include <mutex>
 
 template <typename T>
 class Singleton
