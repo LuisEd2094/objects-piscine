@@ -2,33 +2,25 @@
 #include <Course.hpp>
 #include <Forms/Form.hpp>
 #include <Person/Staff.hpp>
-
+#include <Lists/RoomList.hpp>
+#include <Rooms/Room.hpp>
 
 int main()
 {
-    Course course("Math");
-    CourseFinishedForm form(&course);
-    CourseFinishedForm form1(&course);
-    CourseFinishedForm form2(&course);
+    RoomList roomList;
 
-    NeedCourseCreationForm form3;
-    NeedMoreClassRoomForm form4;
-    SubscriptionToCourseForm form5;    
+    std::cout << roomList.size() << std::endl;
+    roomList.push_back(Classroom());
+    std::cout << roomList.size() << std::endl;
+
+    HeadmasterOffice headmasterOffice;
+    Secretary secretary("Secretary");
     Headmaster headmaster("Headmaster");
+    Professor professor("Professor");
 
-    headmaster.receiveForm(&form);
-    headmaster.receiveForm(&form1);
-    headmaster.receiveForm(&form2);
-    headmaster.receiveForm(&form3);
-    headmaster.receiveForm(&form4);
-    headmaster.receiveForm(&form5);
-    
-
-    headmaster.signForm(&form);
-    headmaster.executeForm(&form);
-
-    headmaster.signForm();
-    headmaster.executeForm();
+    std::cout << headmasterOffice.canEnter(&headmaster) << std::endl;
+    std::cout << headmasterOffice.canEnter(&secretary) << std::endl;
+    std::cout << headmasterOffice.canEnter(&professor) << std::endl;
 
     return 0;
 }

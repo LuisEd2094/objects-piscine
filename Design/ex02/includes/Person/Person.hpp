@@ -8,7 +8,7 @@
 class Room;
 
 class Person
-{
+{   
 protected:
     std::string _name;
     Room *_currentRoom;
@@ -18,6 +18,9 @@ public:
     Room *room() { return (_currentRoom); }
     std::string getName() const { return _name; };
     void enterRoom(Room *p_room) { _currentRoom = p_room; };
+    // If a Class is not meant to be inherited from, 
+    // it should have a virtual destructor to ensure polymorphic class
+    virtual ~Person() = default; 
 };
 
 #endif

@@ -8,6 +8,7 @@ class Form
 {
 private:
 	FormType _formType;
+	/* I only want Headmaster to be able to sign and execute forms */
 	void sign()
 	{
 		std::cout << "Form signed" << std::endl;
@@ -33,6 +34,8 @@ public:
 	friend class Headmaster;
 };
 
+
+// If you want all forms to be in the same file, you can include them here and then include this file
 #include <Forms/CourseFinishedForm.hpp>
 #include <Forms/NeedMoreClassRoomForm.hpp>
 #include <Forms/NeedCourseCreationForm.hpp>

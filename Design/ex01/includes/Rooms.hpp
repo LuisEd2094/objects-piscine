@@ -1,5 +1,5 @@
-#ifndef ROOM_HPP
-#define ROOM_HPP
+#ifndef ROOMS_HPP
+#define ROOMS_HPP
 
 #include <iostream>
 #include <vector>

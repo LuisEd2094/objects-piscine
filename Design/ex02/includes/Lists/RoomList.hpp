@@ -2,7 +2,7 @@
 #define ROOMLIST_HPP
 
 #include <GenericLists.hpp>
-#include <Rooms.hpp>
+#include <Rooms/Room.hpp>
 
 class RoomList : public GenericLists<Room>
 {
