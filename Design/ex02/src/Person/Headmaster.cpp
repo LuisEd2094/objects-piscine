@@ -9,7 +9,7 @@ void Headmaster::signForm()
 {
     for (auto form : _formToValidate)
     {
-        FormCommander::sign(*form);
+        FormCommander::FormSigner::sign(*form);
     }
 }
 
@@ -17,17 +17,17 @@ void Headmaster::executeForm()
 {
     for (auto form : _formToValidate)
     {
-        FormCommander::execute(*form);
+        FormCommander::FormExecutor::execute(*form);
     }
 }
 
 void Headmaster::signForm(Form *p_form)
 {
-    FormCommander::sign(*p_form);
+    FormCommander::FormSigner::sign(*p_form);
 }
 
 void Headmaster::executeForm(Form *p_form)
 {
-    FormCommander::execute(*p_form);
+    FormCommander::FormExecutor::execute(*p_form);
 }
 
