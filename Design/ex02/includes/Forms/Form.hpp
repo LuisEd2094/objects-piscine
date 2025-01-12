@@ -12,14 +12,20 @@ private:
 	/* I only want Headmaster to be able to sign and execute forms */
 	void sign()
 	{
-		std::cout << "Form signed" << std::endl;
 		_isSigned = true;
 	}
 	void execute()
 	{
+		// We make a basic check at the form level to see if it is signed
+		// Inherited class may have more complex checks
 		if (_isSigned)
 		{
+			std::cout << "Form Signed, executing" << std::endl;
 			onExectute();
+		}
+		else
+		{
+			std::cout << "Form not signed, cannot execute" << std::endl;
 		}
 	}
 	friend class FormCommander;

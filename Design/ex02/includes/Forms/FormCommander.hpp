@@ -23,7 +23,7 @@ class FormCommander
 
             static void execute(Form &form)
             {
-                std::cout << "Form executed" << std::endl;
+                std::cout << "Executing Form" << std::endl;
                 form.execute();
             }
         };
@@ -33,7 +33,7 @@ class FormCommander
 
             static void sign(Form &form)
             {
-                std::cout << "Form signed" << std::endl;
+                std::cout << "Signing form" << std::endl;
                 form.sign();
             }
         };

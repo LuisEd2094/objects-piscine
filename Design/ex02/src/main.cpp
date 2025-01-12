@@ -18,6 +18,34 @@ void testFormCreation()
     }
 }
 
+void testFormSign()
+{
+    std::cout << "Testing form sign" << std::endl;
+    Secretary secretary("Secretary");
+    Headmaster headmaster("Headmaster");
+    Form* form = secretary.createForm(FormType::CourseFinished);
+    std::cout << "Secretary created form: " << *form << std::endl;
+    headmaster.signForm(form);
+    
+    delete form;
+}
+
+void testFormExecute()
+{
+    std::cout << "Testing form execute" << std::endl;
+    Secretary secretary("Secretary");
+    Headmaster headmaster("Headmaster");
+    Form* form = secretary.createForm(FormType::CourseFinished);
+    Form* form2 = secretary.createForm(FormType::NeedMoreClassRoom);
+
+    std::cout << "Secretary created form: " << *form << std::endl;
+    headmaster.signForm(form);
+    headmaster.executeForm(form);
+    headmaster.executeForm(form2);
+    
+    delete form;
+}
+
 
 void testRoomEnter()
 {
@@ -42,7 +70,7 @@ int main()
 {
     testRoomEnter();
     testFormCreation();
-/*     testFormSign();
-    testFormExecute(); */
+    testFormSign();
+    testFormExecute();
     return 0;
 }
