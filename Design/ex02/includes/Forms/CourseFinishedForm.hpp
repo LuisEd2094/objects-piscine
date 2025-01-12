@@ -8,7 +8,7 @@ private:
 	Course *_course;
 
 public:
-	CourseFinishedForm() : Form(FormType::CourseFinished) {};
+	CourseFinishedForm(Course* course) : Form(FormType::CourseFinished), _course(course) {};
 	void onExectute()
 	{
 		std::cout << "Course finished form executed" << std::endl;

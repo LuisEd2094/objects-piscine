@@ -28,6 +28,4 @@ public:
     Professor(std::string p_name) : Staff(p_name) {}
 };
 
-#include <Person/Headmaster.hpp>
-#include <Person/Secretary.hpp>
 #endif

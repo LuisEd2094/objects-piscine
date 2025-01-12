@@ -6,7 +6,7 @@ Form *FormFactory::createForm(FormType p_formType)
     switch (p_formType)
     {
     case FormType::CourseFinished:
-        form = new CourseFinishedForm();
+        form = new CourseFinishedForm(nullptr);
         break;
     case FormType::NeedMoreClassRoom:
         form = new NeedMoreClassRoomForm();
@@ -23,3 +23,4 @@ Form *FormFactory::createForm(FormType p_formType)
     std::cout << "Form created from form Factory: " << *form << std::endl;
     return form;
 }
+
