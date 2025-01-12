@@ -4,6 +4,7 @@
 #include <enums.hpp>
 #include <Course.hpp>
 #include <iostream>
+
 class Form
 {
 private:
@@ -21,6 +22,8 @@ private:
 			onExectute();
 		}
 	}
+	friend class FormCommander;
+
 
 protected:
 	bool _isSigned;
@@ -30,8 +33,13 @@ public:
 	Form(FormType p_formType) : _formType(p_formType), _isSigned(false)
 	{
 	}
+	virtual ~Form() = default;
 
-	friend class Headmaster;
+	friend std::ostream& operator<<(std::ostream& os, const Form& form) {
+        os << "Form type: " << static_cast<int>(form._formType) << std::endl;
+        return os;  // Return the ostream object for chaining
+    }
+
 };
 
 
@@ -40,5 +48,4 @@ public:
 #include <Forms/NeedMoreClassRoomForm.hpp>
 #include <Forms/NeedCourseCreationForm.hpp>
 #include <Forms/SubscriptionToCourseForm.hpp>
-
 #endif

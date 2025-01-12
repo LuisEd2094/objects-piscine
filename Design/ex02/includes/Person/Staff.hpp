@@ -15,16 +15,6 @@ public:
     Staff(std::string p_name, Room *p_room) : Person(p_name, p_room) {}
 };
 
-class Secretary : public Staff
-{
-private:
-    Secretary() : Staff("Secretary") {}
-public:
-    Form *createForm(FormType p_formType);
-    void archiveForm();
-    Secretary(std::string p_name) : Staff(p_name) {}
-};
-
 class Professor : public Staff
 {
 private:
@@ -39,5 +29,5 @@ public:
 };
 
 #include <Person/Headmaster.hpp>
-
+#include <Person/Secretary.hpp>
 #endif

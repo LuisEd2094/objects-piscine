@@ -19,9 +19,10 @@ SRCS_PATH	= src/
 OBJS_PATH	= obj/
 DEPS_PATH	= deps/
 PERSON_PATH	= 	Person/
+FORMS_PATH	= 	Forms/
 
-MAKE_OBJ_DIR = $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(PERSON_PATH)) \
-				$(addprefix $(DEPS_PATH), $(PERSON_PATH))
+MAKE_OBJ_DIR = $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(PERSON_PATH) $(FORMS_PATH)) \
+				$(addprefix $(DEPS_PATH), $(PERSON_PATH) $(FORMS_PATH))
 
 INCS        = $(shell find ./includes -type d -exec echo -I{} \;)
 
@@ -42,10 +43,13 @@ LIGHT_GREEN = \033[1;92m
 
 ###
 
-PERSON_SRC		=  Headmaster.cpp
+PERSON_SRC		=  Headmaster.cpp Secretary.cpp 
 PERSON_FILES	= $(addprefix $(PERSON_PATH), $(PERSON_SRC))
 
-SRC        		=	main.cpp $(PERSON_FILES) 
+FORMS_SRC		=  FormFactory.cpp
+FORMS_FILES		= $(addprefix $(FORMS_PATH), $(FORMS_SRC))
+
+SRC        		=	main.cpp $(PERSON_FILES) $(FORMS_FILES)
 				
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d))
 

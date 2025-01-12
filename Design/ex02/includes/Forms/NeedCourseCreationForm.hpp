@@ -12,6 +12,7 @@ public:
     {
         std::cout << "NeedCourseCreation form executed" << std::endl;
     };
+    ~NeedCourseCreationForm(){};
 };
 
 #endif

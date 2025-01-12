@@ -7,7 +7,8 @@ enum class FormType
 	CourseFinished,
 	NeedMoreClassRoom,
 	NeedCourseCreation,
-    SubscriptionToCourse
+    SubscriptionToCourse,
+	COUNT,
 };
 
 enum class Event

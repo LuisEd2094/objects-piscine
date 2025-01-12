@@ -1,5 +1,4 @@
 #include <Person/Headmaster.hpp>
-#include <Forms/Form.hpp>
 
 void Headmaster::receiveForm(Form *p_form)
 {
@@ -10,7 +9,7 @@ void Headmaster::signForm()
 {
     for (auto form : _formToValidate)
     {
-        form->sign();
+        FormCommander::sign(*form);
     }
 }
 
@@ -18,17 +17,17 @@ void Headmaster::executeForm()
 {
     for (auto form : _formToValidate)
     {
-        form->execute();
+        FormCommander::execute(*form);
     }
 }
 
 void Headmaster::signForm(Form *p_form)
 {
-    p_form->sign();
+    FormCommander::sign(*p_form);
 }
 
 void Headmaster::executeForm(Form *p_form)
 {
-    p_form->execute();
+    FormCommander::execute(*p_form);
 }
 

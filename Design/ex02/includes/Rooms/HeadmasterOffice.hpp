@@ -2,7 +2,9 @@
 #define HEADMASTEROFFICE_HPP
 
 #include <Rooms/Room.hpp>
-#include <Person/Staff.hpp>
+#include <Person/Headmaster.hpp>
+#include <Person/Secretary.hpp>
+
 
 class HeadmasterOffice : public Room
 {

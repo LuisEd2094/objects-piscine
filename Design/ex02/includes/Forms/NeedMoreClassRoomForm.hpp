@@ -12,6 +12,7 @@ public:
 	{
 		std::cout << "NeedMoreClass form executed" << std::endl;
 	};
+	~NeedMoreClassRoomForm(){};
 };
 
 #endif

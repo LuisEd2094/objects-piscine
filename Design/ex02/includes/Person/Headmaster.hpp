@@ -2,6 +2,9 @@
 #define HEADMASTER_HPP
 
 #include <Person/Staff.hpp>
+#include <Forms/FormCommander.hpp>
+#include <Forms/Form.hpp>
+
 #include <List.hpp>
 class Headmaster : public Staff
 {

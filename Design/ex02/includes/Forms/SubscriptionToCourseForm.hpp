@@ -11,6 +11,7 @@ public:
     {
         std::cout << "Subscription form executed" << std::endl;
     };
+    ~SubscriptionToCourseForm(){};
 };
 
 #endif
