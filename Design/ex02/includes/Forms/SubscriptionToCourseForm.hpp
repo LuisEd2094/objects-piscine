@@ -5,10 +5,13 @@
 class SubscriptionToCourseForm : public Form
 {
 private:
+    Course *_course;
+    Student *_student;
 public:
-    SubscriptionToCourseForm() : Form(FormType::SubscriptionToCourse) {};
+    SubscriptionToCourseForm(Course * p_course, Student * p_student) : Form(FormType::SubscriptionToCourse), _course(p_course), _student(p_student) {};
     void onExectute()
     {
+        _course->subscribe(_student);
         std::cout << "Subscription form executed" << std::endl;
     };
     ~SubscriptionToCourseForm(){};

@@ -10,7 +10,6 @@ private:
     Secretary() : Staff("Secretary") {}
 
 public:
-    Form *createForm(FormType p_formType);
     template <typename... Args>
     Form *createForm(FormType p_formType, Args &&...args)
     {

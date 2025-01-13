@@ -48,10 +48,4 @@ public:
 
 };
 
-
-// If you want all forms to be in the same file, you can include them here and then include this file
-#include <Forms/CourseFinishedForm.hpp>
-#include <Forms/NeedMoreClassRoomForm.hpp>
-#include <Forms/NeedCourseCreationForm.hpp>
-#include <Forms/SubscriptionToCourseForm.hpp>
 #endif

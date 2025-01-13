@@ -11,7 +11,7 @@ public:
 	CourseFinishedForm(Course* course) : Form(FormType::CourseFinished), _course(course) {};
 	void onExectute()
 	{
-		std::cout << "Course finished form executed" << std::endl;
+		_course->setFinished(true);
 	};
     ~CourseFinishedForm(){};
 };

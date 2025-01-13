@@ -47,10 +47,4 @@ public:
 
 long long Room::ID = 0;
 
-#include <Rooms/Classroom.hpp>
-#include <Rooms/Courtyard.hpp>
-#include <Rooms/HeadmasterOffice.hpp>
-#include <Rooms/SecretarialOffice.hpp>
-#include <Rooms/StaffRestRoom.hpp>
-
 #endif

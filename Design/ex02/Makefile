@@ -43,14 +43,12 @@ LIGHT_GREEN = \033[1;92m
 
 ###
 
-PERSON_SRC		=  Headmaster.cpp Secretary.cpp 
+PERSON_SRC		=  Headmaster.cpp 
 PERSON_FILES	= $(addprefix $(PERSON_PATH), $(PERSON_SRC))
 
-FORMS_SRC		=  FormFactory.cpp
-FORMS_FILES		= $(addprefix $(FORMS_PATH), $(FORMS_SRC))
 
-SRC        		=	main.cpp $(PERSON_FILES) $(FORMS_FILES)
-				
+SRC        		=	main.cpp $(PERSON_FILES) 
+
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d))
 
 OBJS 			=	$(addprefix $(OBJS_PATH), $(SRC:.cpp=.o))
