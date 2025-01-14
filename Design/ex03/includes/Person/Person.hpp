@@ -10,7 +10,6 @@ class Room;
 class Person
 {   
 protected:
-    template <typename T>
     std::string _name;
     Room *_currentRoom;
     Person(std::string p_name) : _name(p_name), _currentRoom(nullptr) {};
