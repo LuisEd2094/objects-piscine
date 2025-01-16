@@ -37,7 +37,7 @@ void testFormSign()
 {
     std::cout << "Testing form sign" << std::endl;
     Secretary secretary("Secretary");
-    Headmaster headmaster("Headmaster");
+    Headmaster headmaster = Singleton<Headmaster>::getInstance();
     Course course("Physics");
     Form *form = secretary.createForm(FormType::CourseFinished, &course);
     std::cout << "Secretary created form: " << *form << std::endl;
@@ -50,7 +50,7 @@ void testFormExecute()
 {
     std::cout << "Testing form execute" << std::endl;
     Secretary secretary("Secretary");
-    Headmaster headmaster("Headmaster");
+    Headmaster headmaster = Singleton<Headmaster>::getInstance();
     Course course("Physics");
     Form *form = secretary.createForm(FormType::CourseFinished, &course);
     Form *form2 = secretary.createForm(FormType::NeedMoreClassRoom);
@@ -73,16 +73,28 @@ void testRoomEnter()
 
     HeadmasterOffice headmasterOffice;
     Secretary secretary("Secretary");
-    Headmaster headmaster("Headmaster");
     Professor professor("Professor");
 
-    std::cout << "Can enter headmaster: " << headmasterOffice.canEnter(&headmaster) << std::endl;
+    std::cout << "Can enter headmaster: " << headmasterOffice.canEnter(static_cast<Person *>(&Singleton<Headmaster>::getInstance())) << std::endl;
     std::cout << "Can enter secretary: " << headmasterOffice.canEnter(&secretary) << std::endl;
     std::cout << "Can enter professor: " << headmasterOffice.canEnter(&professor) << std::endl;
 }
 
+void testMediator()
+{
+    Headmaster headmaster = Singleton<Headmaster>::getInstance();
+    Student student("John");
+    Professor proffesor("Math");
+
+    headmaster.registerMediatee(&student);
+    headmaster.notify(&student, "Event");
+    headmaster.notify(&proffesor, "Event");
+    
+}
+
 int main()
 {
+    std::cout << Singleton<Headmaster>::getInstance().getName();
     try
     {
         std::cout << "Starting tests" << std::endl;
@@ -90,6 +102,7 @@ int main()
         testFormCreation();
         testFormSign();
         testFormExecute();
+        testMediator();
     }
     catch (const std::exception &e)
     {

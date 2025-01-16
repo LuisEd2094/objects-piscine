@@ -43,6 +43,7 @@
 #include <Course.hpp>
 #include <enums.hpp>
 #include <Singleton.hpp>
+#include <Mediator.hpp>
 
 
 

@@ -1,5 +1,6 @@
 #include <Person/Headmaster.hpp>
 
+
 void Headmaster::receiveForm(Form *p_form)
 {
     _formToValidate.push_back(p_form);

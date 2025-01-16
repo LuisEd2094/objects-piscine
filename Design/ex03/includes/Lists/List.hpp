@@ -85,6 +85,17 @@ public:
         std::lock_guard<std::mutex> lock(mutex_);
         return items.begin();
     }
+    bool empty() const
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        return items.empty();
+    }
+
+    bool contains(const T &item) const
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        return std::find(items.begin(), items.end(), item) != items.end();
+    }
 
     typename std::vector<T>::iterator end()
     {

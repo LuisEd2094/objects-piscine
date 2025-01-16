@@ -4,10 +4,12 @@
 #include <Person/Staff.hpp>
 #include <Forms/FormFactory.hpp>
 
-class Secretary : public Staff
+class Headmaster;
+class Secretary : public Staff, public Mediatee
 {
 private:
-    Secretary() : Staff("Secretary") {}
+    Secretary() : Staff("Secretary"), Mediatee(static_cast<Mediator *>(&Singleton<Headmaster>::getInstance())) {}
+    void receive(const std::string& event) {static_cast<void>(event);};
 
 public:
     template <typename... Args>
@@ -16,7 +18,8 @@ public:
         return FormFactory::createForm(p_formType, std::forward<Args>(args)...);
     }
     void archiveForm();
-    Secretary(std::string p_name) : Staff(p_name) {}
+    Secretary(std::string p_name) : Staff(p_name),Mediatee(static_cast<Mediator *>(&Singleton<Headmaster>::getInstance())){}
+    ~Secretary() {};
 };
 
 #endif

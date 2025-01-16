@@ -43,11 +43,11 @@ LIGHT_GREEN = \033[1;92m
 
 ###
 
-PERSON_SRC		=  Headmaster.cpp 
+PERSON_SRC		=  Headmaster.cpp Person.cpp 
 PERSON_FILES	= $(addprefix $(PERSON_PATH), $(PERSON_SRC))
 
 
-SRC        		=	main.cpp $(PERSON_FILES) 
+SRC        		=	main.cpp Mediator.cpp $(PERSON_FILES) 
 
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d))
 

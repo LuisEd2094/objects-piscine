@@ -2,9 +2,12 @@
 #define SINGLETON_HPP
 
 #include <mutex> // For thread-safety (C++11 and above)
-
+class SingletonBase {
+public:
+    virtual ~SingletonBase() = default;
+};
 template <typename T>
-class Singleton
+class Singleton : public SingletonBase
 {
 private:
     Singleton() {}
