@@ -2,18 +2,17 @@
 #define COURSEFINISHEDFORM_HPP
 
 #include <Forms/Form.hpp>
+
+class Course;
 class CourseFinishedForm : public Form
 {
 private:
 	Course *_course;
 
 public:
-	CourseFinishedForm(Course* course) : Form(FormType::CourseFinished), _course(course) {};
-	void onExectute()
-	{
-		_course->setFinished(true);
-	};
-    ~CourseFinishedForm(){};
+	CourseFinishedForm(Course* course);
+	void onExectute();
+    ~CourseFinishedForm();
 };
 	
 

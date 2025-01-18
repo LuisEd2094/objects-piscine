@@ -46,9 +46,14 @@ LIGHT_GREEN = \033[1;92m
 PERSON_SRC		=  Headmaster.cpp Person.cpp 
 PERSON_FILES	= $(addprefix $(PERSON_PATH), $(PERSON_SRC))
 
-MAIN_FILE		= 	main.cpp
+FORMS_SRC		=   Form.cpp AssignProfessorToCourse.cpp CourseFinishedForm.cpp \
+					FormCommander.cpp NeedCourseCreationForm.cpp NeedMoreClassRoomForm.cpp \
+					SubscriptionToCourseForm.cpp
+FORMS_FILES		= $(addprefix $(FORMS_PATH), $(FORMS_SRC))
 
-SRC        		=	Mediator.cpp Course.cpp $(PERSON_FILES) 
+MAIN_FILE		= 	main.cpp 
+
+SRC        		=	Mediator.cpp Course.cpp $(PERSON_FILES) $(FORMS_FILES)
 
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d) $(MAIN_FILE:.cpp=.d))
 

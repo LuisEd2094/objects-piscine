@@ -8,6 +8,7 @@ enum class FormType
 	NeedMoreClassRoom,
 	NeedCourseCreation,
     SubscriptionToCourse,
+	AssignProffesorToCourse,
 	COUNT,
 };
 

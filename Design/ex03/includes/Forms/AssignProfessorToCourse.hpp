@@ -2,8 +2,9 @@
 #define ASSIGNPROFESSORTOCOURSE_HPP
 
 #include <Forms/Form.hpp>
-#include <Course.hpp>
-#include <Person/Professor.hpp>
+
+class Course;
+class Professor;
 
 class AssignProfessorToCourse : public Form
 {
@@ -12,15 +13,9 @@ private:
     Professor *_professor;
 
 public:
-    SubscriptionToCourseForm(Course *p_course, Professor *p_professor) : Form(FormType::AssignProffesorToCourse),
-                                                                         _course(p_course),
-                                                                         _professor(p_professor) {};
-    void onExectute()
-    {
-        _course->assign(_professor);
-        std::cout << "Assign form executed" << std::endl;
-    };
-    ~SubscriptionToCourseForm() {};
+    AssignProfessorToCourse(Course *p_course, Professor *p_professor);
+    void onExectute();
+    ~AssignProfessorToCourse();
 };
 
 #endif

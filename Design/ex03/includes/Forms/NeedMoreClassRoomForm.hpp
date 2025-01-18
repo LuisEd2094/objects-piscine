@@ -8,13 +8,9 @@ class NeedMoreClassRoomForm : public Form
 {
 private:
 public:
-	NeedMoreClassRoomForm() : Form(FormType::NeedMoreClassRoom) {};
-	void onExectute()
-	{
-		Singleton<RoomList>::getInstance().push_back(Classroom());
-		std::cout << "NeedMoreClass form executed" << std::endl;
-	};
-	~NeedMoreClassRoomForm(){};
+	NeedMoreClassRoomForm();
+	void onExectute();
+	~NeedMoreClassRoomForm();
 };
 
 #endif
