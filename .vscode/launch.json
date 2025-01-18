@@ -136,6 +136,25 @@
                 }
             ],
 	        "args": [""],
+        },{
+            "preLaunchTask": "Build Mediator Ex03",
+            "name": "Design Ex03",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Design/ex03/Mediator",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+	        "args": [""],
         },
     ]
 }
