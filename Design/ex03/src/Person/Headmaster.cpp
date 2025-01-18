@@ -1,6 +1,8 @@
 #include <Person/Headmaster.hpp>
+#include <Forms/FormCommander.hpp>
 
-
+Headmaster::Headmaster() : Staff("Headmaster") {}
+Headmaster::~Headmaster() {};
 void Headmaster::receiveForm(Form *p_form)
 {
     _formToValidate.push_back(p_form);
@@ -31,4 +33,3 @@ void Headmaster::executeForm(Form *p_form)
 {
     FormCommander::FormExecutor::execute(*p_form);
 }
-

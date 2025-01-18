@@ -4,16 +4,16 @@
 #include <Person.hpp>
 
 class Form;
+class Room;
 
 class Staff : public Person
 {
 private:
-    Staff() : Person("Staff") {}
+    Staff();
 public:
-    void sign(Form *p_form);
-    Staff(std::string p_name) : Person(p_name) {}
-    Staff(std::string p_name, Room *p_room) : Person(p_name, p_room) {}
-    ~Staff() {};
+    Staff(std::string p_name);
+    Staff(std::string p_name, Room *p_room);
+    ~Staff();
 
 };
 

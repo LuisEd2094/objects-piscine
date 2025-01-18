@@ -43,7 +43,7 @@ LIGHT_GREEN = \033[1;92m
 
 ###
 
-PERSON_SRC		=  Headmaster.cpp Person.cpp 
+PERSON_SRC		=  Headmaster.cpp Person.cpp Staff.cpp Professor.cpp Headmaster.cpp Student.cpp Secretary.cpp
 PERSON_FILES	= $(addprefix $(PERSON_PATH), $(PERSON_SRC))
 
 FORMS_SRC		=   Form.cpp AssignProfessorToCourse.cpp CourseFinishedForm.cpp \

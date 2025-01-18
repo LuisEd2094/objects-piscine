@@ -2,16 +2,17 @@
 #define HEADMASTER_HPP
 
 #include <Person/Staff.hpp>
-#include <Forms/FormCommander.hpp>
-#include <Forms/Form.hpp>
-#include <List.hpp>
+#include <Mediator.hpp>
+
+template <typename T>
+class Singleton;
 
 class Headmaster : public Staff, public Mediator
 {
 private:
     List<Form *> _formToValidate;
     friend class Singleton<Headmaster>;
-    Headmaster() : Staff("Headmaster") {}
+    Headmaster();
 
 public:
     void receiveForm(Form *p_form);
@@ -19,7 +20,7 @@ public:
     void signForm();
     void executeForm(Form *p_form);
     void executeForm();
-    ~Headmaster() {};
+    ~Headmaster();
 };
 
 #endif

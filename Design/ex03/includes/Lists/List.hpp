@@ -5,7 +5,7 @@
 #include <memory>
 #include <mutex>
 #include <functional>
-class Course;
+
 template <typename T>
 class List
 {
