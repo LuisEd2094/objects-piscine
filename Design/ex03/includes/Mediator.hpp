@@ -10,36 +10,26 @@ class Mediatee
 {
 protected:
     Mediator *_mediator;
-    Mediatee(Mediator *mediator) : _mediator(mediator) {};
+    Mediatee(Mediator *mediator);
 
 public:
     template <typename... Args>
-    void receive(const std::string &event, Args &&...args)
-    {
-        std::cout << "Mediatee received event: " << event << std::endl;
-    }
+    void receive(const std::string &event, Args &&...args);
     virtual ~Mediatee() = 0;
 };
 
 class Mediator
 {
-private:
+protected:
     List<Mediatee *> _mediated;
 
 public:
     template <typename... Args, typename M>
-    void notify(M *sender, const std::string &event, Args &&...args)
-    {
-        if (_mediated.empty() || !sender)
-            return;
-        if (_mediated.contains(sender))
-            sender->receive(event, std::forward<Args>(args)...);
-    }
-    void registerMediatee(Mediatee *mediatee)
-    {
-        _mediated.push_back(mediatee);
-    }
-    virtual ~Mediator() = default;
+    void notify(M *sender, const std::string &event, Args &&...args);
+    void registerMediatee(Mediatee *mediatee);
+    virtual ~Mediator() = 0;
 };
+
+#include <Mediator.tpp>
 
 #endif
