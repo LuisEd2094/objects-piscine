@@ -2,8 +2,8 @@
 #define COURSELIST_HPP
 
 #include <GenericLists.hpp>  
-#include <Course.hpp> 
 
+class Course;
 class CourseList : public GenericLists<Course>
 {
 };

@@ -2,8 +2,8 @@
 #define STAFFLIST_HPP
 
 #include <GenericLists.hpp>
-#include <Staff.hpp>
 
+class Staff;
 class StaffList : public GenericLists<Staff>
 {
 

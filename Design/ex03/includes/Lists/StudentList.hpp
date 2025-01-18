@@ -2,8 +2,8 @@
 #define STUDENTLIST_HPP
 
 #include <GenericLists.hpp>
-#include <Student.hpp>
 
+class Student;
 class StudentList : public GenericLists<Student>
 {
 };
