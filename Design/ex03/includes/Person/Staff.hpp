@@ -3,7 +3,6 @@
 
 #include <Person.hpp>
 
-class Course;
 class Form;
 
 class Staff : public Person

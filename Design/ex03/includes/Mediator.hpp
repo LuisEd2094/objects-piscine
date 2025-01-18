@@ -27,8 +27,8 @@ private:
     List<Mediatee *> _mediated;
 
 public:
-    template <typename... Args, typename Mediatee>
-    void notify(Mediatee *sender, const std::string &event, Args &&...args)
+    template <typename... Args, typename M>
+    void notify(M *sender, const std::string &event, Args &&...args)
     {
         if (_mediated.empty() || !sender)
             return;

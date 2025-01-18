@@ -7,15 +7,15 @@
 class NeedCourseCreationForm : public Form
 {
 private:
-    std::string _course_name;
+    CourseType _course_type;
 public:
-    NeedCourseCreationForm(const std::string& course_name) : Form(FormType::NeedCourseCreation), _course_name(course_name){
+    NeedCourseCreationForm(CourseType course_type) : Form(FormType::NeedCourseCreation), _course_type(course_type){
 
-        _course_name = course_name;
+        _course_type = course_type;
     };
     void onExectute()
     {
-        Singleton<CourseList>::getInstance().push_back(Course(_course_name));
+        Singleton<CourseList>::getInstance().push_back(Course(_course_type));
         std::cout << "NeedCourseCreation form executed" << std::endl;
     };
     ~NeedCourseCreationForm(){};

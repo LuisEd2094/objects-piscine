@@ -2,7 +2,8 @@
 #define PROFESSOR_HPP
 
 #include <Person/Staff.hpp>
-class Headmaster;
+#include <Person/Headmaster.hpp>
+class Course;
 class Professor : public Staff, public Mediatee
 {
 private:

@@ -46,12 +46,13 @@ LIGHT_GREEN = \033[1;92m
 PERSON_SRC		=  Headmaster.cpp Person.cpp 
 PERSON_FILES	= $(addprefix $(PERSON_PATH), $(PERSON_SRC))
 
+MAIN_FILE		= 	main.cpp
 
-SRC        		=	main.cpp Mediator.cpp $(PERSON_FILES) 
+SRC        		=	Mediator.cpp Course.cpp $(PERSON_FILES) 
 
-DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d))
+DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d) $(MAIN_FILE:.cpp=.d))
 
-OBJS 			=	$(addprefix $(OBJS_PATH), $(SRC:.cpp=.o))
+OBJS 			=	$(addprefix $(OBJS_PATH), $(SRC:.cpp=.o) $(MAIN_FILE:.cpp=.o))
 
 all: $(NAME)
 
@@ -82,6 +83,7 @@ $(DEPS_PATH):
 
 -include $(DEPS)
 
+
 TEST_PATH	= tests/
 
 TEST_SRC = test.cpp test_lists.cpp 
@@ -91,7 +93,7 @@ TEST_SRC := $(addprefix $(TEST_PATH), $(TEST_SRC))
 TEST_EXEC = my_test
 
 $(TEST_EXEC): $(TEST_SRC)
-		$(CC) $(DEFINES) -g -o $(TEST_EXEC) $(TEST_SRC) $(TESTFLAGS) $(INCS) 
+		$(CC) $(DEFINES) -g -o $(TEST_EXEC) $(TEST_SRC) $(addprefix src/,  $(SRC)) $(TESTFLAGS) $(INCS) 
 
 
 

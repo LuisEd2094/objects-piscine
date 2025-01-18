@@ -5,19 +5,19 @@ void testFormCreation()
 {
     std::cout << "Testing form creation" << std::endl;
     Secretary secretary("Secretary");
-    Course  course("Physics");
+    Course  course(CourseType::Math);
     Student student("John");
     Form *form;
     for (int i = 0; i < static_cast<int>(FormType::COUNT); i++)
     {
         if (i == static_cast<int>(FormType::CourseFinished))
         {
-            Course course = Course("Math");
+            Course course = Course(CourseType::Math);
             form = secretary.createForm(FormType::CourseFinished, &course);
         }
         else if (i == static_cast<int>(FormType::NeedCourseCreation))
         {
-            form = secretary.createForm(FormType::NeedCourseCreation, std::string("Math"));
+            form = secretary.createForm(FormType::NeedCourseCreation, CourseType::Math);
         }
         else if (i == static_cast<int>(FormType::SubscriptionToCourse))
         {
@@ -38,7 +38,7 @@ void testFormSign()
     std::cout << "Testing form sign" << std::endl;
     Secretary secretary("Secretary");
     Headmaster headmaster = Singleton<Headmaster>::getInstance();
-    Course course("Physics");
+    Course course(CourseType::Math);    
     Form *form = secretary.createForm(FormType::CourseFinished, &course);
     std::cout << "Secretary created form: " << *form << std::endl;
     headmaster.signForm(form);
@@ -51,7 +51,7 @@ void testFormExecute()
     std::cout << "Testing form execute" << std::endl;
     Secretary secretary("Secretary");
     Headmaster headmaster = Singleton<Headmaster>::getInstance();
-    Course course("Physics");
+    Course course(CourseType::Math);
     Form *form = secretary.createForm(FormType::CourseFinished, &course);
     Form *form2 = secretary.createForm(FormType::NeedMoreClassRoom);
 
