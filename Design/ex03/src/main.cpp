@@ -87,7 +87,8 @@ void testMediator()
     Professor proffesor("Math");
 
     headmaster.registerMediatee(&student);
-    headmaster.notify(&student, "Event");
+    headmaster.registerMediatee(&proffesor);
+    headmaster.notify(&student, "Event", 1, 2, 3);
     headmaster.notify(&proffesor, "Event");
     
 }
