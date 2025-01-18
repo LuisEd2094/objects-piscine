@@ -11,6 +11,19 @@ enum class FormType
 	COUNT,
 };
 
+enum class CourseType
+{
+	Math,
+	Physics,
+	Chemistry,
+	ComputerScience,
+	English,
+	History,
+	Geography,
+	French,
+	COUNT,
+};
+
 enum class Event
 {
 	RingBell

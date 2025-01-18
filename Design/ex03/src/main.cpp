@@ -73,7 +73,7 @@ void testRoomEnter()
 
     HeadmasterOffice headmasterOffice;
     Secretary secretary("Secretary");
-    Professor professor("Professor");
+    Professor professor("Professor", CourseType::Math);
 
     std::cout << "Can enter headmaster: " << headmasterOffice.canEnter(static_cast<Person *>(&Singleton<Headmaster>::getInstance())) << std::endl;
     std::cout << "Can enter secretary: " << headmasterOffice.canEnter(&secretary) << std::endl;
@@ -84,7 +84,7 @@ void testMediator()
 {
     Headmaster headmaster = Singleton<Headmaster>::getInstance();
     Student student("John");
-    Professor proffesor("Math");
+    Professor proffesor("Math", CourseType::Math);
 
     headmaster.registerMediatee(&student);
     headmaster.registerMediatee(&proffesor);
