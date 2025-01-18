@@ -6,7 +6,7 @@
 #include <List.hpp>
 
 class Course;
-class Classroom;
+class ClassRoom;
 class Room;
 
 class Student : public Person, public Mediatee
@@ -18,7 +18,7 @@ public:
     Student(std::string p_name);
     Student(std::string p_name, Room *p_classroom);
     ~Student();
-    void attendClass(Classroom *p_classroom);
+    void attendClass(ClassRoom *p_classroom);
     void exitClass();
     void graduate(Course *p_course);
     template <typename... Args>

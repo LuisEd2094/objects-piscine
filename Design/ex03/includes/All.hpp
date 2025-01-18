@@ -32,7 +32,7 @@
 // Rooms
 
 #include <Rooms/Room.hpp>
-#include <Rooms/Classroom.hpp>
+#include <Rooms/ClassRoom.hpp>
 #include <Rooms/Courtyard.hpp>
 #include <Rooms/HeadmasterOffice.hpp>
 #include <Rooms/StaffRestRoom.hpp>

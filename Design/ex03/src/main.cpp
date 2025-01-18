@@ -68,7 +68,7 @@ void testRoomEnter()
     std::cout << "Testing room enter" << std::endl;
     RoomList roomList;
     std::cout << "Room size" << roomList.size() << std::endl;
-    roomList.push_back(Classroom());
+    roomList.push_back(ClassRoom());
     std::cout << "Room size after adding classroom" << roomList.size() << std::endl;
 
     HeadmasterOffice headmasterOffice;

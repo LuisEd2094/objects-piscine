@@ -6,7 +6,7 @@
 
 template <typename T>
 class Singleton;
-
+class From;
 class Headmaster : public Staff, public Mediator
 {
 private:

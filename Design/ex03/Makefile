@@ -20,9 +20,10 @@ OBJS_PATH	= obj/
 DEPS_PATH	= deps/
 PERSON_PATH	= 	Person/
 FORMS_PATH	= 	Forms/
+ROOMS_PATH	= 	Rooms/
 
-MAKE_OBJ_DIR = $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(PERSON_PATH) $(FORMS_PATH)) \
-				$(addprefix $(DEPS_PATH), $(PERSON_PATH) $(FORMS_PATH))
+MAKE_OBJ_DIR = $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(PERSON_PATH) $(FORMS_PATH) $(ROOMS_PATH) ) \
+				$(addprefix $(DEPS_PATH), $(PERSON_PATH) $(FORMS_PATH) $(ROOMS_PATH) )
 
 INCS        = $(shell find ./includes -type d -exec echo -I{} \;)
 
@@ -43,18 +44,21 @@ LIGHT_GREEN = \033[1;92m
 
 ###
 
-PERSON_SRC		=  Headmaster.cpp Person.cpp Staff.cpp Professor.cpp Headmaster.cpp Student.cpp Secretary.cpp
+PERSON_SRC		=  Headmaster.cpp Person.cpp Staff.cpp Professor.cpp Student.cpp Secretary.cpp
 PERSON_FILES	= $(addprefix $(PERSON_PATH), $(PERSON_SRC))
 
 FORMS_SRC		=   Form.cpp AssignProfessorToCourse.cpp CourseFinishedForm.cpp \
 					FormCommander.cpp NeedCourseCreationForm.cpp NeedMoreClassRoomForm.cpp \
 					SubscriptionToCourseForm.cpp
 FORMS_FILES		= $(addprefix $(FORMS_PATH), $(FORMS_SRC))
+ 
+ROOMS_SRC		=   Room.cpp ClassRoom.cpp Courtyard.cpp HeadmasterOffice.cpp SecretaryOffice.cpp StaffRestRoom.cpp
+ROOMS_FILES		= $(addprefix $(ROOMS_PATH), $(ROOMS_SRC))
+
+
+SRC        		=	Mediator.cpp Course.cpp $(PERSON_FILES) $(FORMS_FILES) $(ROOMS_FILES)
 
 MAIN_FILE		= 	main.cpp 
-
-SRC        		=	Mediator.cpp Course.cpp $(PERSON_FILES) $(FORMS_FILES)
-
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d) $(MAIN_FILE:.cpp=.d))
 
 OBJS 			=	$(addprefix $(OBJS_PATH), $(SRC:.cpp=.o) $(MAIN_FILE:.cpp=.o))

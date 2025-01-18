@@ -3,6 +3,7 @@
 
 Headmaster::Headmaster() : Staff("Headmaster") {}
 Headmaster::~Headmaster() {};
+
 void Headmaster::receiveForm(Form *p_form)
 {
     _formToValidate.push_back(p_form);

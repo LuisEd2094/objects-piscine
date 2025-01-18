@@ -9,6 +9,9 @@ private:
 	std::vector<Form *> _archivedForms;
 
 public:
+	SecretarialOffice() : Room(std::type_index(typeid(Secretary))) {};
+	~SecretarialOffice() {};
+
 };
 
 

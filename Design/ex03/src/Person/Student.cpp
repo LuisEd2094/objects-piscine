@@ -8,7 +8,7 @@ Student::Student(std::string p_name) : Person(p_name),
 Student::Student(std::string p_name, Room *p_classroom) : Person(p_name, p_classroom),
                                                           Mediatee(static_cast<Mediator *>(&Singleton<Headmaster>::getInstance())) {};
 Student::~Student() {};
-void Student::attendClass(Classroom *p_classroom) {
+void Student::attendClass(ClassRoom *p_classroom) {
     (void)p_classroom;
 
 };
