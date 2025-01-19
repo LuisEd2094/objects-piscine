@@ -141,5 +141,44 @@ void List<T>::erase(const T &item)
     items.erase(std::find(items.begin(), items.end(), item));
 }
 
+template <typename T>
+typename std::vector<T>::iterator List<T>::find(const T &item)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return std::find(items.begin(), items.end(), item);
+}
 
-#endif 
+template <typename T>
+typename std::vector<T>::const_iterator List<T>::find(const T &item) const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return std::find(items.cbegin(), items.cend(), item);
+}
+
+template <typename T>
+template <typename Predicate>
+typename std::vector<T>::const_iterator List<T>::find_if(Predicate pred) const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return std::find_if(items.cbegin(), items.cend(), pred);
+}
+
+template <typename T>
+template <typename Predicate>
+typename std::vector<T>::iterator List<T>::find_if(Predicate pred) const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    return std::find_if(items.cbegin(), items.cend(), pred);
+}
+
+template <typename T>
+template <typename Predicate>
+T List<T>::find_if(Predicate pred)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+
+    auto it = std::find_if(items.begin(), items.end(), pred);
+    return (it != items.end()) ? *it : nullptr;
+}
+
+#endif

@@ -2,9 +2,13 @@
 #include <Course.hpp>
 #include <iostream>
 
+Course* CourseList::getCourse(CourseType course_type)
+{
 
-CourseList::~CourseList() {
-    for (auto course : *this) {
-        delete course;
-    }
+    return (find_if([course_type](Course *course)
+                   { return course->getType() == course_type; }));
+}
+
+CourseList::~CourseList()
+{
 }

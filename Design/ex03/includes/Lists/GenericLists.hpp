@@ -25,6 +25,19 @@ public:
 
     bool contains(const T &item) const;
 
+    typename std::vector<T>::iterator find(const T &item);
+
+    typename std::vector<T>::const_iterator find(const T &item) const;
+    
+    template <typename Predicate>
+    typename std::vector<T>::iterator find_if(Predicate pred) const;
+
+    template <typename Predicate>
+    typename std::vector<T>::const_iterator find_if(Predicate pred) const;
+
+    template <typename Predicate>
+    T find_if(Predicate pred);
+
     typename std::vector<T>::iterator end();
 
     typename std::vector<T>::const_iterator begin() const;

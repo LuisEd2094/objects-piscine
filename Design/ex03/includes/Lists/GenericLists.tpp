@@ -51,6 +51,17 @@ bool GenericLists<T>::contains(const T &item) const
 {
     return Singleton<List<T>>::getInstance().contains(item);
 }
+template <typename T>
+typename std::vector<T>::iterator GenericLists<T>::find(const T &item)
+{
+    return Singleton<List<T>>::getInstance().find(item);
+}
+
+template <typename T>
+typename std::vector<T>::const_iterator GenericLists<T>::find(const T &item) const
+{
+    return Singleton<List<T>>::getInstance().find(item);
+}
 
 template <typename T>
 typename std::vector<T>::iterator GenericLists<T>::end()
@@ -86,6 +97,32 @@ template <typename T>
 void GenericLists<T>::erase(const T &item)
 {
     Singleton<List<T>>::getInstance().erase(item);
+}
+
+template <typename T>
+template <typename Predicate>
+typename std::vector<T>::const_iterator GenericLists<T>::find_if(Predicate pred) const
+{
+    return Singleton<List<T>>::getInstance().find_if(pred);
+}
+
+template <typename T>
+template <typename Predicate>
+typename std::vector<T>::iterator GenericLists<T>::find_if(Predicate pred) const
+{
+    return Singleton<List<T>>::getInstance().find_if(pred);
+}
+
+/**
+ * @brief This returns the first element that satisfies the predicate
+ * It works when T is a pointer, like CourseList, but I am not sure how it works when the GenericList
+ * stores objects and not pointers
+ * */
+template <typename T>
+template <typename Predicate>
+T GenericLists<T>::find_if(Predicate pred)
+{
+    return Singleton<List<T>>::getInstance().find_if(pred);
 }
 
 #endif
