@@ -1,5 +1,28 @@
 #include <Course.hpp>
 #include <Professor.hpp>
+#include <Lists/CourseList.hpp>
+#include <enums.hpp>
+#include <List.hpp>
+#include <enums.hpp>
+
+Course::Course() : _course_type(CourseType::NONE),
+                   _responsable(nullptr),
+                   _numberOfClassToGraduate(0),
+                   _maximumNumberOfStudent(30),
+                   _isFinished(false)
+{
+    CourseList courseList;
+    courseList.push_back(this);
+};
+Course::Course(CourseType p_course_type) : _course_type(p_course_type),
+                                           _responsable(nullptr),
+                                           _numberOfClassToGraduate(0),
+                                           _maximumNumberOfStudent(30),
+                                           _isFinished(false)
+{
+    CourseList courseList;
+    courseList.push_back(this);
+};
 
 void Course::assign(Professor *p_professor)
 {

@@ -14,6 +14,7 @@ enum class FormType
 
 enum class CourseType
 {
+	NONE,
 	Math,
 	Physics,
 	Chemistry,

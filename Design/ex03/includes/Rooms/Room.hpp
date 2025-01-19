@@ -13,7 +13,8 @@ private:
 	static long long ID;
 	List<Person *> _occupants;
 	List<std::type_index> _allowedOccupants;
-
+protected:
+	void addToList(Room *);
 public:
 	Room();
 	template <typename... Args>

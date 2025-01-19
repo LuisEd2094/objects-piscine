@@ -7,8 +7,8 @@ class StaffRestRoom : public Room
 {
 private:
 public:
-    StaffRestRoom(){};
-    ~StaffRestRoom(){};
+    StaffRestRoom();
+    ~StaffRestRoom();
 };
 
 #endif

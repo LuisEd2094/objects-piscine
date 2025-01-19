@@ -3,14 +3,15 @@
 
 #include <Rooms/Room.hpp>
 
+class Form;
 class SecretarialOffice : public Room
 {
 private:
 	std::vector<Form *> _archivedForms;
 
 public:
-	SecretarialOffice() : Room(std::type_index(typeid(Secretary))) {};
-	~SecretarialOffice() {};
+	SecretarialOffice();
+	~SecretarialOffice();
 
 };
 

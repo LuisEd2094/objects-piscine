@@ -20,11 +20,7 @@ private:
     bool _isFinished;
 
     Course();
-    Course(CourseType p_course_type) : _course_type(p_course_type),
-                                       _responsable(nullptr),
-                                       _numberOfClassToGraduate(0),
-                                       _maximumNumberOfStudent(30),
-                                       _isFinished(false) {};
+    Course(CourseType );
     friend class NeedCourseCreationForm;
 
 public:

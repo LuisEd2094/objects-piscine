@@ -8,8 +8,8 @@ class Courtyard : public Room
 {
 private:
 public:
-    Courtyard(){};
-    ~Courtyard(){};
+    Courtyard();
+    ~Courtyard();
 };
 
 #endif

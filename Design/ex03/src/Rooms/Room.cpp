@@ -1,5 +1,6 @@
 #include <Rooms/Room.hpp>
 #include <Person/Person.hpp>
+#include <Lists/RoomList.hpp>
 long long Room::ID = 0;
 
 Room::Room()
@@ -7,6 +8,12 @@ Room::Room()
     ++Room::ID;
 };
 Room::~Room() {};
+
+void Room::addToList(Room *p_room)
+{
+    RoomList roomList;
+    roomList.push_back(p_room);
+};
 
 bool Room::canEnter(Person *p_person)
 {
