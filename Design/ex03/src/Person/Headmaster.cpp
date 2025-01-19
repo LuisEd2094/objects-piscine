@@ -1,7 +1,9 @@
 #include <Person/Headmaster.hpp>
 #include <Forms/FormCommander.hpp>
 
-Headmaster::Headmaster() : Staff("Headmaster") {}
+Headmaster::Headmaster() : Staff("Headmaster") {
+        addToList(this);
+}
 Headmaster::~Headmaster() {};
 
 void Headmaster::receiveForm(Form *p_form)

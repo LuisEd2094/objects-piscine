@@ -11,7 +11,9 @@ NeedCourseCreationForm::NeedCourseCreationForm(CourseType course_type) : Form(Fo
 };
 void NeedCourseCreationForm::onExectute()
 {
-    Singleton<CourseList>::getInstance().push_back(Course(_course_type));
-    std::cout << "NeedCourseCreation form executed" << std::endl;
+    CourseList courseList;
+    courseList.push_back(new Course(_course_type));
 };
-NeedCourseCreationForm::~NeedCourseCreationForm() {};
+NeedCourseCreationForm::~NeedCourseCreationForm() {
+
+};

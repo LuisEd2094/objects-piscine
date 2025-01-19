@@ -22,7 +22,9 @@ public:
     CourseType getCourseType();
 
     template <typename... Args>
-    void receive(const std::string &event, Args &&...args);
+    void receive(Event event, Args &&...args);
+
+    void handleRingBell();
 };
 
 #include <Person/Professor.tpp>

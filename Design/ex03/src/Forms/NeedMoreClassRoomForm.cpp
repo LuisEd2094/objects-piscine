@@ -6,7 +6,7 @@
 NeedMoreClassRoomForm::NeedMoreClassRoomForm() : Form(FormType::NeedMoreClassRoom) {};
 void NeedMoreClassRoomForm::onExectute()
 {
-    Singleton<RoomList>::getInstance().push_back(ClassRoom());
-    std::cout << "NeedMoreClass form executed" << std::endl;
+    RoomList roomList;
+    roomList.push_back(new ClassRoom());
 };
 NeedMoreClassRoomForm::~NeedMoreClassRoomForm(){};

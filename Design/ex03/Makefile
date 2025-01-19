@@ -21,9 +21,10 @@ DEPS_PATH	= deps/
 PERSON_PATH	= 	Person/
 FORMS_PATH	= 	Forms/
 ROOMS_PATH	= 	Rooms/
+LISTS_PATH	= 	Lists/
 
-MAKE_OBJ_DIR = $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(PERSON_PATH) $(FORMS_PATH) $(ROOMS_PATH) ) \
-				$(addprefix $(DEPS_PATH), $(PERSON_PATH) $(FORMS_PATH) $(ROOMS_PATH) )
+MAKE_OBJ_DIR = $(OBJS_PATH) $(addprefix $(OBJS_PATH), $(PERSON_PATH) $(FORMS_PATH) $(ROOMS_PATH) $(LISTS_PATH) ) \
+				$(addprefix $(DEPS_PATH), $(PERSON_PATH) $(FORMS_PATH) $(ROOMS_PATH) $(LISTS_PATH) )
 
 INCS        = $(shell find ./includes -type d -exec echo -I{} \;)
 
@@ -56,7 +57,10 @@ ROOMS_SRC		=   Room.cpp ClassRoom.cpp Courtyard.cpp HeadmasterOffice.cpp Secreta
 ROOMS_FILES		= $(addprefix $(ROOMS_PATH), $(ROOMS_SRC))
 
 
-SRC        		=	Mediator.cpp Course.cpp $(PERSON_FILES) $(FORMS_FILES) $(ROOMS_FILES)
+LISTS_SRC		=   CourseList.cpp
+LISTS_FILES		= $(addprefix $(LISTS_PATH), $(LISTS_SRC))
+
+SRC        		=	Mediator.cpp Course.cpp $(PERSON_FILES) $(FORMS_FILES) $(ROOMS_FILES) $(LISTS_FILES)
 
 MAIN_FILE		= 	main.cpp 
 DEPS			= 	$(addprefix $(DEPS_PATH), $(SRC:.cpp=.d) $(MAIN_FILE:.cpp=.d))

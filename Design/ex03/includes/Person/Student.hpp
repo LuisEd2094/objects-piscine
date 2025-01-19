@@ -4,6 +4,7 @@
 #include <Person.hpp>
 #include <Mediator.hpp>
 #include <List.hpp>
+#include <enums.hpp>
 
 class Course;
 class ClassRoom;
@@ -22,7 +23,7 @@ public:
     void exitClass();
     void graduate(Course *p_course);
     template <typename... Args>
-    void receive(const std::string &event, Args &&...args);
+    void receive(Event event, Args &&...args);
 };
 
 #include <Person/Student.tpp>

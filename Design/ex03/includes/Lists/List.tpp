@@ -134,4 +134,12 @@ typename std::vector<T>::const_iterator List<T>::cend() const
     return items.cend();
 }
 
+template <typename T>
+void List<T>::erase(const T &item)
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    items.erase(std::find(items.begin(), items.end(), item));
+}
+
+
 #endif 

@@ -5,13 +5,14 @@
 Secretary::Secretary() : Staff("Secretary"),
                          Mediatee(static_cast<Mediator *>(&Singleton<Headmaster>::getInstance()))
 {
+    addToList(this);
 }
 Secretary::Secretary(std::string p_name) : Staff(p_name),
                                            Mediatee(static_cast<Mediator *>(&Singleton<Headmaster>::getInstance()))
 {
+    addToList(this);
 }
-Secretary::~Secretary()
-{
+Secretary::~Secretary() {
 };
 
 void Secretary::receive(const std::string &event)

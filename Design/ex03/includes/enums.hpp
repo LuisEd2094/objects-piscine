@@ -27,7 +27,9 @@ enum class CourseType
 
 enum class Event
 {
-	RingBell
+	RingBell,
+	CreateCourse,
+	COUNT,
 };
 
 

@@ -16,26 +16,27 @@ private:
 
 public:
     List(const List &rhs);
-    
+
     List &operator=(const List &rhs);
-    
+
     List();
-    
+
     ~List();
     void push_back(const T &item);
-    
+
     void push_back(const T *item);
-    
+
     void pop_back();
 
     T const &operator[](int index) const;
-    
+
     T &operator[](int index);
-    
+
     size_t size() const;
-    
+
     typename std::vector<T>::iterator begin();
     bool empty() const;
+    void erase(const T &item);
 
     bool contains(const T &item) const;
 
@@ -48,8 +49,6 @@ public:
     typename std::vector<T>::const_iterator cbegin() const;
 
     typename std::vector<T>::const_iterator cend() const;
-
-    friend class Course;
 
     template <typename U>
     friend class GenericLists; // Friend to access the non-const operator[]

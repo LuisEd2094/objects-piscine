@@ -4,8 +4,9 @@
 #include <GenericLists.hpp>
 
 class Room;
-class RoomList : public GenericLists<Room>
+class RoomList : public GenericLists<Room *>
 {
+
 };
 
 #endif

@@ -3,10 +3,18 @@
 #include <Person/Professor.hpp>
 
 template <typename... Args>
-void Professor::receive(const std::string &event, Args &&...args)
+void Professor::receive(Event event, Args &&...args)
 {
-    std::cout << "Professor " << _name << " received event: " << event << std::endl;
-    (std::cout << ... << args) << std::endl;
+    switch (event)
+    {
+    case Event::RingBell:
+        doClass();
+        break;
+    
+    default:
+        std::cerr << "Professor " << _name << " received unknown event: " << static_cast<int>(event) << std::endl;
+        break;
+    }
 }
 
 #endif

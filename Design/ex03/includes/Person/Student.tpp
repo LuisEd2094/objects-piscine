@@ -3,9 +3,9 @@
 #include <Person/Student.hpp>
 
 template <typename... Args>
-void Student::receive(const std::string &event, Args &&...args)
+void Student::receive(Event event, Args &&...args)
 {
-    std::cout << "Student " << _name << " received event: " << event << std::endl;
+    std::cout << "Student " << _name << " received event: " << static_cast<int>(event) << std::endl;
     (std::cout << ... << args) << std::endl;
 }
 

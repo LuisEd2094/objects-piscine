@@ -4,9 +4,8 @@
 #include <GenericLists.hpp>
 
 class Staff;
-class StaffList : public GenericLists<Staff>
+class StaffList : public GenericLists<Staff *>
 {
-
 };
 
 #endif

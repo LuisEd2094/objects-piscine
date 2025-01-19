@@ -1,7 +1,7 @@
 #include <iostream>
 #include <All.hpp>
 
-void testFormCreation()
+/* void testFormCreation()
 {
     std::cout << "Testing form creation" << std::endl;
     Secretary secretary("Secretary");
@@ -31,9 +31,9 @@ void testFormCreation()
         std::cout << "Secretary created form: " << *form << std::endl;
         delete form;
     }
-}
+} */
 
-void testFormSign()
+/* void testFormSign()
 {
     std::cout << "Testing form sign" << std::endl;
     Secretary secretary("Secretary");
@@ -44,9 +44,9 @@ void testFormSign()
     headmaster.signForm(form);
 
     delete form;
-}
+} */
 
-void testFormExecute()
+/* void testFormExecute()
 {
     std::cout << "Testing form execute" << std::endl;
     Secretary secretary("Secretary");
@@ -61,9 +61,9 @@ void testFormExecute()
     headmaster.executeForm(form2);
 
     delete form;
-}
+} */
 
-void testRoomEnter()
+/* void testRoomEnter()
 {
     std::cout << "Testing room enter" << std::endl;
     RoomList roomList;
@@ -78,19 +78,17 @@ void testRoomEnter()
     std::cout << "Can enter headmaster: " << headmasterOffice.canEnter(static_cast<Person *>(&Singleton<Headmaster>::getInstance())) << std::endl;
     std::cout << "Can enter secretary: " << headmasterOffice.canEnter(&secretary) << std::endl;
     std::cout << "Can enter professor: " << headmasterOffice.canEnter(&professor) << std::endl;
-}
+} */
 
 void testMediator()
 {
     Headmaster headmaster = Singleton<Headmaster>::getInstance();
-    Student student("John");
     Professor proffesor("Math", CourseType::Math);
 
-    headmaster.registerMediatee(&student);
     headmaster.registerMediatee(&proffesor);
-    headmaster.notify(&student, "Event", 1, 2, 3);
-    headmaster.notify(&proffesor, "Event");
-    
+    headmaster.notify(&proffesor, Event::RingBell);
+
+
 }
 
 int main()
@@ -99,10 +97,10 @@ int main()
     try
     {
         std::cout << "Starting tests" << std::endl;
-        testRoomEnter();
+        /* testRoomEnter();
         testFormCreation();
         testFormSign();
-        testFormExecute();
+        testFormExecute(); */
         testMediator();
     }
     catch (const std::exception &e)

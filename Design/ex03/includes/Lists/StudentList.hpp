@@ -4,7 +4,7 @@
 #include <GenericLists.hpp>
 
 class Student;
-class StudentList : public GenericLists<Student>
+class StudentList : public GenericLists<Student *>
 {
 };
 

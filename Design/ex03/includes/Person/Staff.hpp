@@ -10,6 +10,8 @@ class Staff : public Person
 {
 private:
     Staff();
+protected:
+    void addToList(Staff *);
 public:
     Staff(std::string p_name);
     Staff(std::string p_name, Room *p_room);

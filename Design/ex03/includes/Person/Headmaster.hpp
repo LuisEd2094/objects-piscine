@@ -3,6 +3,7 @@
 
 #include <Person/Staff.hpp>
 #include <Mediator.hpp>
+#include <enums.hpp>
 
 template <typename T>
 class Singleton;
@@ -20,7 +21,12 @@ public:
     void signForm();
     void executeForm(Form *p_form);
     void executeForm();
+    
+    template <typename... Args, typename E>
+    void receive(E, Args &&...);
     ~Headmaster();
 };
+
+#include <Person/Headmaster.tpp>
 
 #endif

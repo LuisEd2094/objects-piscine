@@ -4,8 +4,10 @@
 #include <GenericLists.hpp>  
 
 class Course;
-class CourseList : public GenericLists<Course>
+class CourseList : public GenericLists<Course *>
 {
+    public:
+    ~CourseList();
 };
 
 #endif

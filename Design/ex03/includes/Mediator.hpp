@@ -10,11 +10,14 @@ class Mediatee
 {
 protected:
     Mediator *_mediator;
-    Mediatee(Mediator *mediator);
+    Mediatee(Mediator *);
 
 public:
-    template <typename... Args>
-    void receive(const std::string &event, Args &&...args);
+    template <typename... Args, typename E>
+    void receive(E &, Args &&...);
+
+    template <typename... Args, typename E>
+    void receive(E, Args &&...);
     virtual ~Mediatee() = 0;
 };
 
@@ -24,9 +27,16 @@ protected:
     List<Mediatee *> _mediated;
 
 public:
-    template <typename... Args, typename M>
-    void notify(M *sender, const std::string &event, Args &&...args);
-    void registerMediatee(Mediatee *mediatee);
+    template <typename... Args, typename M, typename E>
+    void notify(M *, E&, Args &&...);
+
+    template <typename... Args, typename M, typename E>
+    void notify(M *, E, Args &&...);
+    
+    template <typename... Args, typename E>
+    void receive(E, Args &&...);
+
+    void registerMediatee(Mediatee *);
     virtual ~Mediator() = 0;
 };
 

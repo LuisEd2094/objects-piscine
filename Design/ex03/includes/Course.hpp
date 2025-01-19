@@ -7,6 +7,7 @@
 #include <enums.hpp>
 class Professor;
 class Student;
+class CourseList;
 
 class Course
 {
@@ -19,13 +20,15 @@ private:
     bool _isFinished;
 
     Course();
-
-public:
     Course(CourseType p_course_type) : _course_type(p_course_type),
                                        _responsable(nullptr),
                                        _numberOfClassToGraduate(0),
                                        _maximumNumberOfStudent(30),
                                        _isFinished(false) {};
+    friend class NeedCourseCreationForm;
+
+public:
+
     void assign(Professor *p_professor);
     void subscribe(Student *p_student);
     void setFinished(bool p_isFinished) { _isFinished = p_isFinished; }
