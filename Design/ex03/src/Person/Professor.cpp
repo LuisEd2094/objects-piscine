@@ -4,7 +4,7 @@
 #include <Course.hpp>
 
 Professor::Professor(std::string p_name, CourseType course_type) : Staff(p_name),
-                                                                   Mediatee(static_cast<Mediator *>(&Singleton<Headmaster>::getInstance())),
+                                                                   Mediatee(&Singleton<Headmaster>::getInstance()),
                                                                    _current_course(nullptr),
                                                                    _course_type(course_type)
 {
@@ -23,10 +23,9 @@ void Professor::doClass()
     }
     else
     {
-        if (_mediator)
-            _mediator->receive(Event::CreateCourse, this, _course_type);
-        else
-            std::cerr << "Professor " << _name << " has no course assigned" << std::endl;
+        // We cast it otherwise it calls the base class
+        if (auto headmasterMediator = dynamic_cast<Headmaster *>(_mediator))
+            headmasterMediator->receive(Event::AssignProfessorToCourse, this, _course_type);
     }
 };
 void Professor::closeCourse() {};

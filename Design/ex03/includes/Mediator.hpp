@@ -9,7 +9,7 @@ class Mediator;
 class Mediatee
 {
 protected:
-    Mediator *_mediator;
+    Mediator* _mediator;
     Mediatee(Mediator *);
 
 public:

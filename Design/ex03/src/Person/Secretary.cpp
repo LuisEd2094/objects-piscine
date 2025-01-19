@@ -3,7 +3,7 @@
 #include <Headmaster.hpp>
 
 Secretary::Secretary() : Staff("Secretary"),
-                         Mediatee(static_cast<Mediator *>(&Singleton<Headmaster>::getInstance()))
+                         Mediatee(&Singleton<Headmaster>::getInstance())
 {
     addToList(this);
 }
@@ -19,4 +19,6 @@ void Secretary::receive(const std::string &event)
 {
     static_cast<void>(event);
 };
-void Secretary::archiveForm() {};
+void Secretary::archiveForm() {
+
+};

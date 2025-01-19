@@ -1,7 +1,9 @@
 #ifndef SINGLETON_HPP
 #define SINGLETON_HPP
 
-#include <mutex> // For thread-safety (C++11 and above)
+#include <mutex>
+    #include <iostream>
+
 class SingletonBase {
 public:
     virtual ~SingletonBase() = default;
@@ -21,7 +23,7 @@ public:
     static T& getInstance()
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        static T instance; 
+        static T instance;
         return instance;
     }
     ~Singleton()

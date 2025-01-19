@@ -27,17 +27,19 @@ public:
 
     void assign(Professor *p_professor);
     void subscribe(Student *p_student);
-    void setFinished(bool p_isFinished) { _isFinished = p_isFinished; }
+    void setFinished(bool p_isFinished);
+
+    CourseType getType();
 
     /**
      * @brief Get the student at the index
      */
-    Student *operator[](size_t index) { return _students[index]; }
+    Student *operator[](size_t index);
 
     /**
      * @brief Get the size of the list of students
      */
-    size_t size() { return _students.size(); }
+    size_t size();
 };
 
 #endif

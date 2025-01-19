@@ -8,7 +8,7 @@ enum class FormType
 	NeedMoreClassRoom,
 	NeedCourseCreation,
     SubscriptionToCourse,
-	AssignProffesorToCourse,
+	AssignProfessorToCourse,
 	COUNT,
 };
 
@@ -29,7 +29,7 @@ enum class CourseType
 enum class Event
 {
 	RingBell,
-	CreateCourse,
+	AssignProfessorToCourse,
 	COUNT,
 };
 

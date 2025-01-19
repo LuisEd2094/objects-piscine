@@ -1,14 +1,18 @@
 #include <Person/Headmaster.hpp>
 
-/* template <typename... Args>
-void receive(Event event , Args &&... args)
-{
-    (void)event;
 
-    for (auto &&arg : {args...})
+template <typename... Args, typename E>
+void Headmaster::receive(E e, Args &&... args)
+{
+    Event event = static_cast<Event>(e);
+    switch (event)
     {
-        std::cout << arg << std::endl;
+    case Event::AssignProfessorToCourse:
+        handleAssignProfessorToCourse(args...);
+        break;
+    
+    default:
+        break;
     }
 
-    std::cout << "Headmaster received event" << std::endl;
-} */
+}

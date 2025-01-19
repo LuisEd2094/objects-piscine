@@ -8,14 +8,15 @@
 class Secretary : public Staff, public Mediatee
 {
 private:
-    Secretary();
     void receive(const std::string& event);
-
+    
 public:
     template <typename... Args>
     Form *createForm(FormType p_formType, Args &&...args);
     void archiveForm();
     Secretary(std::string p_name);
+    Secretary();
+
     ~Secretary();
 };
 

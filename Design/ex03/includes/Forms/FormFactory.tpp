@@ -5,6 +5,7 @@
 #include <Forms/NeedCourseCreationForm.hpp>
 #include <Forms/SubscriptionToCourseForm.hpp>
 #include <Forms/NeedMoreClassRoomForm.hpp>
+#include <Forms/AssignProfessorToCourse.hpp>
 
 template <typename... Args>
 Form *FormFactory::createForm(FormType p_formType, Args &&...args)
@@ -23,6 +24,9 @@ Form *FormFactory::createForm(FormType p_formType, Args &&...args)
         break;
     case FormType::NeedMoreClassRoom:
         form = create<NeedMoreClassRoomForm>(std::forward<Args>(args)...); // Forward arguments for SubscriptionToCourseForm
+        break;
+    case FormType::AssignProfessorToCourse:
+        form = create<AssignProfessorToCourse>(std::forward<Args>(args)...); // Forward arguments for SubscriptionToCourseForm
         break;
     default:
         throw std::invalid_argument("Invalid form type");

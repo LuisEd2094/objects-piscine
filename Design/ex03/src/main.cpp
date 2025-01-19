@@ -83,17 +83,19 @@
 void testMediator()
 {
     Headmaster headmaster = Singleton<Headmaster>::getInstance();
-    Professor proffesor("Math", CourseType::Math);
+    std::cout << "This is headmater "<<&headmaster << std::endl;
 
-    headmaster.registerMediatee(&proffesor);
-    headmaster.notify(&proffesor, Event::RingBell);
+    Professor professor("Math", CourseType::Math);
+
+    headmaster.registerMediatee(&professor);
+    headmaster.notify(&professor, Event::RingBell);
+    headmaster.notify(&professor, Event::RingBell);
 
 
 }
 
 int main()
 {
-    std::cout << Singleton<Headmaster>::getInstance().getName();
     try
     {
         std::cout << "Starting tests" << std::endl;
