@@ -123,20 +123,24 @@ void Graph::printGraph()
 
 std::vector<std::vector<std::vector<uint8_t> > > Graph::generateImage()
 {
-    if (_vectors.empty())
+ if (_vectors.empty())
         throw std::runtime_error("No vectors to generate image");
+
     int block_size = 8;
     int width = (_size.points[0] + 1) * block_size;
     int height = (_size.points[1] + 1) * block_size;
+
     std::vector<std::vector<std::vector<uint8_t> > > image(height,
-                                                         std::vector<std::vector<uint8_t> >(width,
-                                                                                           std::vector<uint8_t>(3, 0)));
+                                                          std::vector<std::vector<uint8_t> >(width,
+                                                                                            std::vector<uint8_t>(3, 0)));
 
     std::list<Vector2> sorted = _vectors;
     sorted.sort(compareVectors);
 
     std::list<Vector2>::const_iterator it = sorted.begin();
     std::list<Vector2>::const_iterator it2 = sorted.end();
+
+    // Looping through the y-axis from bottom to top for row order
     for (int y = _size.points[1]; y >= 0; --y)
     {
         for (int x = 0; x <= _size.points[0]; ++x)
@@ -148,11 +152,12 @@ std::vector<std::vector<std::vector<uint8_t> > > Graph::generateImage()
                     for (int dx = 0; dx < block_size; ++dx)
                     {
                         std::vector<uint8_t> pixel; // RGB values
-                        pixel.push_back(255);
-                        pixel.push_back(150);
-                        pixel.push_back(150);
+                        pixel.push_back(255);   // Red
+                        pixel.push_back(150);   // Green
+                        pixel.push_back(150);   // Blue
 
-                        image[y * block_size + dy][x * block_size + dx] = pixel;
+                        // Assign pixel data to the correct position
+                        image[(height - 1) - (y * block_size + dy)][x * block_size + dx] = pixel;
                     }
                 }
                 // Handle repeated points
@@ -161,5 +166,5 @@ std::vector<std::vector<std::vector<uint8_t> > > Graph::generateImage()
             }
         }
     }
-    return (image);
+    return image;
 }
