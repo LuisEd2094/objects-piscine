@@ -77,7 +77,6 @@ void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<std
     for (size_t y = 0; y < image.size(); y++)
     {
         uncompressed_data.push_back(0); 
-
         for (size_t x = 0; x < image[y].size(); x++)
         {
             uncompressed_data.push_back(image[y][x][0]); // Red
@@ -85,20 +84,24 @@ void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<std
             uncompressed_data.push_back(image[y][x][2]); // Blue
         }
     }
+    std::vector<unsigned char> idat_data;
 
-    // Step 2: Compress the uncompressed image data using zlib
-    uLongf compressed_size = compressBound(uncompressed_data.size()); // max size after compression
-    std::vector<unsigned char> compressed_data(compressed_size);
+    // zlib header (0x78, 0x01) indicates no compression
+    idat_data.push_back(0x78);
+    idat_data.push_back(0x01);
 
-    int result = compress(compressed_data.data(), &compressed_size, uncompressed_data.data(), uncompressed_data.size());
+    // DEFLATE block header
+    size_t data_size = uncompressed_data.size();
+    idat_data.push_back(0x01);  // Final block (BFINAL=1), no compression (BTYPE=00)
+    
+    // Little-endian length and one's complement
+    idat_data.push_back(data_size & 0xFF);           // LEN LSB
+    idat_data.push_back((data_size >> 8) & 0xFF);    // LEN MSB
+    idat_data.push_back(~data_size & 0xFF);          // NLEN LSB (one's complement)
+    idat_data.push_back((~data_size >> 8) & 0xFF);   // NLEN MSB
 
-    if (result != Z_OK)
-    {
-        std::cerr << "Compression failed!" << std::endl;
-        return;
-    }
-
-    compressed_data.resize(compressed_size); // Resize to the actual compressed size
+    // Step 3: Append the raw uncompressed image data
+    idat_data.insert(idat_data.end(), uncompressed_data.begin(), uncompressed_data.end());
 
     std::vector<unsigned char> idat_chunk;
     idat_chunk.push_back('I');
@@ -106,7 +109,7 @@ void PNGWriter::writeIDAT(std::ofstream &file, const std::vector<std::vector<std
     idat_chunk.push_back('A');
     idat_chunk.push_back('T');
 
-    idat_chunk.insert(idat_chunk.end(), compressed_data.begin(), compressed_data.end());
+    idat_chunk.insert(idat_chunk.end(), idat_data.begin(), idat_data.end());
     writeChunk(file, idat_chunk);
 }
 void PNGWriter::writeIEND(std::ofstream &file)
