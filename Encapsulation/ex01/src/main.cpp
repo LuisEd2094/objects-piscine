@@ -4,7 +4,6 @@
 
 int main(int argc, char **argv)
 {
-    std::cout << "Hello" << std::endl;
     try
     {
         if (argc == 1)
@@ -18,15 +17,17 @@ int main(int argc, char **argv)
 
             graph.printGraph();
             std::cout << "Size: " << graph.getSize() << std::endl;
-            PNGWriter::writePNG("test.png", graph.generateImage());
 
             Graph graph2;
             graph2.addLine(Vector2(0, 0), Vector2(2, 9));
             graph2.printGraph();
+            PNGWriter::writePNG("test.png", graph2.generateImage());
         }
         else if (argc == 2)
         {
             Graph graph(argv[1]);
+            PNGWriter::writePNG("test.png", graph.generateImage());
+            
             graph.printGraph();
             std::cout << "Size: " << graph.getSize() << std::endl;
         }
